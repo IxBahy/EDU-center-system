@@ -34,14 +34,20 @@ def add_teacher(f_name, l_name, id, c_id):
 
 
 def add_course(name, id, price):
-    my_cursor.execute('call add_teacher(%s,%s,%s);',
+    my_cursor.execute('call add_course(%s,%s,%s);',
                       (name, id, price))
     db.commit()
 
 
 def add_student(f_name, l_name, phone, gender, c_id, t_id):
-    my_cursor.execute('call add_teacher(%s,%s,%s,%s,%s,%s);',
+    my_cursor.execute('call add_student(%s,%s,%s,%s,%s,%s);',
                       (f_name, l_name, phone, gender, c_id, t_id))
+    db.commit()
+
+
+def add_assistant(t_id, f_name, l_name, salary, gender):
+    my_cursor.execute('call add_assistant(%s,%s,%s,%s,%s);',
+                      (t_id, f_name, l_name, salary, gender))
     db.commit()
 
 
@@ -57,6 +63,12 @@ def get_std_count(id):
 
 
 def get_courses_ids():
-    my_cursor.execute('Select name from courses')
+    my_cursor.execute('Select id from courses')
+    result = my_cursor.fetchall()
+    return result
+
+
+def get_teacher_ids():
+    my_cursor.execute('Select id from teachers')
     result = my_cursor.fetchall()
     return result

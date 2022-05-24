@@ -198,7 +198,7 @@ padding-bottom:7px;</string>
      <property name="geometry">
       <rect>
        <x>30</x>
-       <y>310</y>
+       <y>290</y>
        <width>220</width>
        <height>41</height>
       </rect>
@@ -222,8 +222,8 @@ padding-bottom:7px;</string>
     <widget class="QPushButton" name="add_Button">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>380</y>
+       <x>100</x>
+       <y>400</y>
        <width>181</width>
        <height>51</height>
       </rect>
@@ -346,6 +346,24 @@ padding-bottom:7px;</string>
       <string notr="true">background-color:rgba(0,0,0,20);
 border-radius:15px;
 </string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="note_msg">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>350</y>
+       <width>261</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgba(255, 255, 255, 0);
+color: rgb(143,0,0);</string>
      </property>
      <property name="text">
       <string/>

@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow
 import sys
 import database as db
 from database import my_cursor
+import re
 
 
 class MainWindow(QMainWindow):
@@ -174,14 +175,19 @@ class teacher_add_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.add_Button.clicked.connect(self.add)
         for id in db.get_courses_ids():
-            self.course_Id.additem(str(id))
+            for value in id:
+                self.course_Id.addItem(value)
+        self.note_msg.setText('')
 
     def add(self):
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
         t_id = self.id.text()
         c_id = self.course_Id.currentText()
+        db.add_teacher(f_name, l_name, t_id, c_id)
+        self.note_msg.setText('teacher added successfully')
 
     def back_function(self):
         self.close()
@@ -224,6 +230,11 @@ class assistant_add_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.add_Button.clicked.connect(self.add)
+        for t_id in db.get_teacher_ids():
+            for t_value in t_id:
+                self.teacher_Id_Box.addItem(t_value)
+        self.note_msg.setText('')
 
     def back_function(self):
         self.close()
@@ -232,6 +243,15 @@ class assistant_add_window(QMainWindow):
 
     def close_function(self):
         self.close()
+
+    def add(self):
+        f_name = self.first_Name.text()
+        l_name = self.last_Name.text()
+        salary = self.salary.text()
+        gender = self.gender.text()
+        t_id = self.teacher_Id_Box.currentText()
+        db.add_assistant(t_id, f_name, l_name, salary, gender)
+        self.note_msg.setText('assistant added successfully')
 
 
 class teacher_stats_window(QMainWindow):
@@ -266,6 +286,15 @@ class student_add_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.add_Button.clicked.connect(self.add)
+        self.note_msg.setText('')
+        for c_id in db.get_courses_ids():
+            for c_value in c_id:
+                self.course_Id.addItem(c_value)
+
+        for t_id in db.get_teacher_ids():
+            for t_value in t_id:
+                self.teacher_Id_Box.addItem(t_value)
 
     def back_function(self):
         self.close()
@@ -279,9 +308,11 @@ class student_add_window(QMainWindow):
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
         phone = self.phone.text()
-        c_id = self.course_Id.text()
-        t_id = self.teacher_Id_Box.text()
+        c_id = self.course_Id.currentText()
+        t_id = self.teacher_Id_Box.currentText()
         gender = self.gender.text()
+        db.add_student(f_name, l_name, phone, gender, c_id, t_id)
+        self.note_msg.setText('student added successfully')
 
 
 class student_edit_window(QMainWindow):
@@ -337,6 +368,8 @@ class course_add_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.add_Button.clicked.connect(self.add)
+        self.note_msg.setText('')
 
     def back_function(self):
         self.close()
@@ -350,6 +383,8 @@ class course_add_window(QMainWindow):
         name = self.name.text()
         id = self.id.text()
         price = self.price.text()
+        db.add_course(name, id, price)
+        self.note_msg.setText('course added successfully')
 
 
 class course_edit_window(QMainWindow):
