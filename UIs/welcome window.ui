@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>934</width>
+    <height>725</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="Frame">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>891</width>
+      <height>691</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-image: url(:/newPrefix/pexels-photo-7577910.jpeg);
+border-radius:20px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="DarkShade">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>891</width>
+      <height>691</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:rgba(0,0,0,100);
+border-radius:15px;
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Program_name">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>180</y>
+      <width>241</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Cascadia Code ExtraLight</family>
+      <pointsize>32</pointsize>
+      <weight>75</weight>
+      <italic>true</italic>
+      <bold>true</bold>
+      <underline>false</underline>
+      <strikeout>false</strikeout>
+      <stylestrategy>NoAntialias</stylestrategy>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color:rgb(22, 60, 73)</string>
+    </property>
+    <property name="text">
+     <string>Welcome</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="TeacherButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>300</y>
+      <width>160</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#TeacherButton{
+	background-color: rgb(9, 57, 71);
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#TeacherButton:hover{	
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#TeacherButton:pressed{
+	padding-left:5px;
+padding-top:5px;
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(4, 29, 36, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>Teachers</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="StudentButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>390</y>
+      <width>160</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#StudentButton{
+	
+	
+	background-color: rgb(9, 57, 71);
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#StudentButton:hover{	
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#StudentButton:pressed{
+	padding-left:5px;
+padding-top:5px;
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(4, 29, 36, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>Students</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CoursesButton">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>470</y>
+      <width>160</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>9</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#CoursesButton{
+	
+	
+	background-color: rgb(9, 57, 71);
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#CoursesButton:hover{	
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#CoursesButton:pressed{
+	padding-left:5px;
+padding-top:5px;
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(4, 29, 36, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+
+</string>
+    </property>
+    <property name="text">
+     <string>Courses</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exit_button">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>20</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Stencil</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#exit_button{
+	background-color:rgb(184, 67, 44);
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#exit_button:hover{	
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(136, 48, 33, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#exit_button:pressed{
+	padding-left:5px;
+padding-top:5px;
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(4, 29, 36, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>x</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resourse/oop_res.qrc"/>
+  <include location="resourse/oop_res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

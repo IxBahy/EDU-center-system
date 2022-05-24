@@ -1,0 +1,10 @@
+<RCC>
+  <qresource prefix="images"/>
+  <qresource prefix="newPrefix">
+    <file>pexels-photo-7577910.jpeg</file>
+    <file>login.jpeg</file>
+    <file>mm.jpeg</file>
+    <file>pexels-photo-7577910.jpeg</file>
+    <file>pexels-photo-10215790.jpeg</file>
+  </qresource>
+</RCC>
