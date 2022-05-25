@@ -211,6 +211,7 @@ class teacher_edit_window(QMainWindow):
         self.BackButton.clicked.connect(self.back_function)
         self.edit_Button.clicked.connect(self.get_teacher_data)
         self.update_Button.clicked.connect(self.update)
+        self.delete_Button.clicked.connect(self.delete)
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
                 self.teacher_Id_Box.addItem(t_value)
@@ -244,9 +245,13 @@ class teacher_edit_window(QMainWindow):
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
         c_id = self.course_Id_Box.currentText()
-        print(f_name, l_name, t_id, c_id)
-        db.add_teacher(t_id, f_name, l_name, c_id)
+        db.update_teacher(t_id, f_name, l_name, c_id)
         self.note_msg.setText('teacher updated successfully')
+
+    def delete(self):
+        t_id = (self.teacher_Id_Box.currentText(),)
+        db.delete_teacher(t_id)
+        self.note_msg.setText('teacher deleted successfully')
 
 
 class assistant_add_window(QMainWindow):

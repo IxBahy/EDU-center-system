@@ -91,3 +91,8 @@ def update_teacher(t_id, f_name, l_name, c_id):
     my_cursor.execute('call update_teacher(%s,%s,%s,%s);',
                       (t_id, f_name, l_name, c_id))
     db.commit()
+
+
+def delete_teacher(t_id):
+    my_cursor.execute('delete from teachers where id = %s ;', (t_id))
+    db.commit()
