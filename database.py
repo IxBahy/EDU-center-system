@@ -141,3 +141,8 @@ def update_student(id, f_name, l_name, t_id, phone, gender, c_id):
     my_cursor.execute('call update_student(%s,%s,%s,%s,%s,%s,%s);',
                       (id, f_name, l_name, t_id, phone, gender, c_id))
     db.commit()
+
+
+def delete_student(id):
+    my_cursor.execute('delete from students where id=%s', (id))
+    db.commit()

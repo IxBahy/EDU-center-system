@@ -432,7 +432,9 @@ class student_edit_window(QMainWindow):
         self.note_msg.setText('student updated successfully')
 
     def delete(self):
-        pass
+        id = (self.id.text(),)
+        db.delete_student(id)
+        self.note_msg.setText('student deleted successfully')
 
 
 class fees_window(QMainWindow):
