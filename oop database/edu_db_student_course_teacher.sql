@@ -24,14 +24,14 @@ DROP TABLE IF EXISTS `student_course_teacher`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `student_course_teacher` (
   `s_id` int(11) NOT NULL,
-  `c_id` int(11) NOT NULL,
-  `t_id` int(11) NOT NULL,
+  `c_id` varchar(50) NOT NULL,
+  `t_id` varchar(50) NOT NULL,
   PRIMARY KEY (`s_id`,`c_id`),
-  KEY `t_id` (`t_id`),
-  KEY `c_id` (`c_id`),
-  CONSTRAINT `student_course_teacher_ibfk_1` FOREIGN KEY (`t_id`) REFERENCES `teachers` (`id`),
+  KEY `2_idx` (`c_id`),
+  KEY `student_course_teacher_ibfk_4_idx` (`t_id`),
   CONSTRAINT `student_course_teacher_ibfk_2` FOREIGN KEY (`s_id`) REFERENCES `students` (`id`),
-  CONSTRAINT `student_course_teacher_ibfk_3` FOREIGN KEY (`c_id`) REFERENCES `courses` (`id`)
+  CONSTRAINT `student_course_teacher_ibfk_3` FOREIGN KEY (`c_id`) REFERENCES `courses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `student_course_teacher_ibfk_4` FOREIGN KEY (`t_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,6 +41,7 @@ CREATE TABLE `student_course_teacher` (
 
 LOCK TABLES `student_course_teacher` WRITE;
 /*!40000 ALTER TABLE `student_course_teacher` DISABLE KEYS */;
+INSERT INTO `student_course_teacher` VALUES (1,'EN1','aaEN1');
 /*!40000 ALTER TABLE `student_course_teacher` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-24 21:00:36
+-- Dump completed on 2022-05-25 10:45:57
