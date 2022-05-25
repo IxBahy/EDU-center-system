@@ -63,12 +63,31 @@ def get_std_count(id):
 
 
 def get_courses_ids():
-    my_cursor.execute('Select id from courses')
+    my_cursor.execute('Select id from courses;')
     result = my_cursor.fetchall()
     return result
 
 
 def get_teacher_ids():
-    my_cursor.execute('Select id from teachers')
+    my_cursor.execute('Select id from teachers;')
     result = my_cursor.fetchall()
     return result
+
+
+def get_teacher_data(id):
+    my_cursor.execute(
+        'Select first_name,last_name,course from teachers where id=%s;', (id))
+    result = my_cursor.fetchone()
+    return result
+
+
+def get_course_id_by_name(name):
+    my_cursor.execute('Select id from courses where name = %s ;', (name))
+    result = my_cursor.fetchone()
+    return result
+
+
+def update_teacher(t_id, f_name, l_name, c_id):
+    my_cursor.execute('call update_teacher(%s,%s,%s,%s);',
+                      (t_id, f_name, l_name, c_id))
+    db.commit()

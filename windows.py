@@ -209,6 +209,18 @@ class teacher_edit_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.edit_Button.clicked.connect(self.get_teacher_data)
+        self.update_Button.clicked.connect(self.update)
+        for t_id in db.get_teacher_ids():
+            for t_value in t_id:
+                self.teacher_Id_Box.addItem(t_value)
+        self.note_msg.setText('')
+        self.first_Name.setText('')
+        self.last_Name.setText('')
+        self.course_Id_Box.setCurrentText('choose a course')
+        for id in db.get_courses_ids():
+            for value in id:
+                self.course_Id_Box.addItem(value)
 
     def back_function(self):
         self.close()
@@ -217,6 +229,24 @@ class teacher_edit_window(QMainWindow):
 
     def close_function(self):
         self.close()
+
+    def get_teacher_data(self):
+        id = (self.teacher_Id_Box.currentText(),)
+        f_name, l_name, course = db.get_teacher_data(id)
+        self.first_Name.setText(f_name)
+        self.last_Name.setText(l_name)
+        c_name = (course,)
+        c_id = db.get_course_id_by_name(c_name)
+        self.course_Id_Box.setCurrentText(c_id[0])
+
+    def update(self):
+        t_id = self.teacher_Id_Box.currentText()
+        f_name = self.first_Name.text()
+        l_name = self.last_Name.text()
+        c_id = self.course_Id_Box.currentText()
+        print(f_name, l_name, t_id, c_id)
+        db.add_teacher(t_id, f_name, l_name, c_id)
+        self.note_msg.setText('teacher updated successfully')
 
 
 class assistant_add_window(QMainWindow):
