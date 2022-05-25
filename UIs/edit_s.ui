@@ -177,8 +177,8 @@ color:rgb(170, 170, 170);
     <widget class="QPushButton" name="edit_Button">
      <property name="geometry">
       <rect>
-       <x>390</x>
-       <y>150</y>
+       <x>350</x>
+       <y>120</y>
        <width>91</width>
        <height>40</height>
       </rect>
@@ -226,8 +226,8 @@ color:rgb(170, 170, 170);
     <widget class="QPushButton" name="delete_Button">
      <property name="geometry">
       <rect>
-       <x>510</x>
-       <y>150</y>
+       <x>450</x>
+       <y>120</y>
        <width>91</width>
        <height>40</height>
       </rect>
@@ -275,7 +275,7 @@ color:rgb(170, 170, 170);
     <widget class="QPushButton" name="update_Button">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>390</x>
        <y>460</y>
        <width>181</width>
        <height>51</height>
@@ -315,11 +315,11 @@ color:rgb(170, 170, 170);
       <string>update student</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="last_Name_2">
+    <widget class="QLineEdit" name="phone">
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>250</y>
+       <y>310</y>
        <width>220</width>
        <height>41</height>
       </rect>
@@ -344,7 +344,7 @@ padding-bottom:7px;</string>
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>150</y>
+       <y>160</y>
        <width>220</width>
        <height>41</height>
       </rect>
@@ -369,7 +369,7 @@ padding-bottom:7px;</string>
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>200</y>
+       <y>210</y>
        <width>220</width>
        <height>41</height>
       </rect>
@@ -390,11 +390,11 @@ padding-bottom:7px;</string>
       <string>Last Name</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="teacher_Id_Box_2">
+    <widget class="QComboBox" name="teacher_Id_Box">
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>360</y>
+       <y>260</y>
        <width>221</width>
        <height>41</height>
       </rect>
@@ -440,11 +440,11 @@ padding-bottom:7px;</string>
       </property>
      </item>
     </widget>
-    <widget class="QLineEdit" name="last_Name_3">
+    <widget class="QLineEdit" name="gender">
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>310</y>
+       <y>360</y>
        <width>220</width>
        <height>41</height>
       </rect>
@@ -463,6 +463,31 @@ padding-bottom:7px;</string>
      </property>
      <property name="placeholderText">
       <string>gender</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="id">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>110</y>
+       <width>220</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255, 255, 255,230);
+padding-bottom:7px;</string>
+     </property>
+     <property name="placeholderText">
+      <string>ID number</string>
      </property>
     </widget>
    </widget>

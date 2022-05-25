@@ -51,11 +51,6 @@ def add_assistant(t_id, f_name, l_name, salary, gender):
     db.commit()
 
 
-def edit_teacher(id):
-    my_cursor.execute('call edit_teacher(%s);', (id))
-    db.commit()
-
-
 def get_std_count(id):
     my_cursor.execute('call get_std_count(%s);', (id))
     result = my_cursor.fetchone
@@ -96,3 +91,47 @@ def update_teacher(t_id, f_name, l_name, c_id):
 def delete_teacher(t_id):
     my_cursor.execute('delete from teachers where id = %s ;', (t_id))
     db.commit()
+
+
+def update_course(id, new_id, name, price):
+    my_cursor.execute('call update_course(%s,%s,%s,%s);',
+                      (id, new_id, name, price))
+    db.commit()
+
+
+def get_course_data(id):
+    my_cursor.execute(
+        'Select name,price from courses where id=%s;', (id))
+    result = my_cursor.fetchone()
+    return result
+
+
+def delete_course(id):
+    my_cursor.execute('delete from courses where id = %s ;', (id))
+    db.commit()
+
+
+def delete_assistant(f_name, l_name):
+    my_cursor.execute(
+        'delete from assistants where first_name = %s and last_name=%s;', (f_name, l_name))
+    db.commit()
+
+
+def get_assistant_name():
+    my_cursor.execute('select first_name, last_name from assistants;')
+    result = my_cursor.fetchall()
+    return result
+
+
+def get_student_data(id):
+    my_cursor.execute(
+        'select phone,gender,first_name,last_name from students where id = %s;', (id))
+    result = my_cursor.fetchone()
+    return result
+
+
+def get_teacher_and_course_id(id):
+    my_cursor.execute(
+        'select c_id,t_id from student_course_teacher where id = %s;', (id))
+    result = my_cursor.fetchone()
+    return result

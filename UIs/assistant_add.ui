@@ -366,34 +366,6 @@ padding-bottom:7px;</string>
       <string>Last Name</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="full_Name">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>120</y>
-       <width>220</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 0, 0,0);
-border:none;
-border-bottom:2px solid rgba(105,118,132,255);
-color:rgba(255, 255, 255,230);
-padding-bottom:7px;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-     <property name="placeholderText">
-      <string>assistant name</string>
-     </property>
-    </widget>
     <widget class="QComboBox" name="teacher_Id_Box">
      <property name="geometry">
       <rect>
@@ -437,6 +409,31 @@ color: rgb(143,0,0);</string>
       <string/>
      </property>
     </widget>
+    <widget class="QComboBox" name="assistant_box">
+     <property name="geometry">
+      <rect>
+       <x>510</x>
+       <y>120</y>
+       <width>221</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255, 255, 255,230);
+padding-bottom:7px;</string>
+     </property>
+     <property name="placeholderText">
+      <string/>
+     </property>
+     <item>
+      <property name="text">
+       <string>choose an assistant</string>
+      </property>
+     </item>
+    </widget>
    </widget>
   </widget>
  </widget>
@@ -447,7 +444,6 @@ color: rgb(143,0,0);</string>
   <tabstop>gender</tabstop>
   <tabstop>teacher_Id_Box</tabstop>
   <tabstop>add_Button</tabstop>
-  <tabstop>full_Name</tabstop>
   <tabstop>delete_Button</tabstop>
   <tabstop>BackButton</tabstop>
   <tabstop>exit_button</tabstop>

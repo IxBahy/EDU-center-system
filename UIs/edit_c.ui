@@ -272,11 +272,11 @@ color:rgb(170, 170, 170);
       <string>delete</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="first_Name">
+    <widget class="QLineEdit" name="name">
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>270</y>
+       <y>220</y>
        <width>271</width>
        <height>41</height>
       </rect>
@@ -297,11 +297,11 @@ padding-bottom:7px;</string>
       <string>name</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="last_Name">
+    <widget class="QLineEdit" name="price">
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>320</y>
+       <y>270</y>
        <width>271</width>
        <height>41</height>
       </rect>
@@ -350,8 +350,8 @@ padding-bottom:7px;</string>
     <widget class="QPushButton" name="update_Button">
      <property name="geometry">
       <rect>
-       <x>450</x>
-       <y>400</y>
+       <x>490</x>
+       <y>420</y>
        <width>181</width>
        <height>51</height>
       </rect>
@@ -394,7 +394,7 @@ color:rgb(170, 170, 170);
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>220</y>
+       <y>320</y>
        <width>271</width>
        <height>41</height>
       </rect>
@@ -413,6 +413,24 @@ padding-bottom:7px;</string>
      </property>
      <property name="placeholderText">
       <string>new ID</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="note_msg">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>380</y>
+       <width>261</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgba(255, 255, 255, 0);
+color: rgb(143,0,0);</string>
+     </property>
+     <property name="text">
+      <string/>
      </property>
     </widget>
    </widget>

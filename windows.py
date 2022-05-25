@@ -266,6 +266,12 @@ class assistant_add_window(QMainWindow):
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
         self.add_Button.clicked.connect(self.add)
+        self.delete_Button.clicked.connect(self.delete)
+        for names in db.get_assistant_name():
+            full_name = ''
+            for value in names:
+                full_name += value+' '
+            self.assistant_box.addItem(full_name)
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
                 self.teacher_Id_Box.addItem(t_value)
@@ -279,6 +285,20 @@ class assistant_add_window(QMainWindow):
     def close_function(self):
         self.close()
 
+    def delete(self):
+        name = (self.assistant_box.currentText()).split()
+        f_name = name[0]
+        l_name = name[1]
+        db.delete_assistant(f_name, l_name)
+        self.note_msg.setText('assistant deleted successfully')
+        self.assistant_box.clear()
+        self.assistant_box.addItem("choose an assistant")
+        for names in db.get_assistant_name():
+            full_name = ''
+            for value in names:
+                full_name += value+' '
+            self.assistant_box.addItem(full_name)
+
     def add(self):
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
@@ -287,6 +307,13 @@ class assistant_add_window(QMainWindow):
         t_id = self.teacher_Id_Box.currentText()
         db.add_assistant(t_id, f_name, l_name, salary, gender)
         self.note_msg.setText('assistant added successfully')
+        self.assistant_box.clear()
+        self.assistant_box.addItem("choose an assistant")
+        for names in db.get_assistant_name():
+            full_name = ''
+            for value in names:
+                full_name += value+' '
+            self.assistant_box.addItem(full_name)
 
 
 class teacher_stats_window(QMainWindow):
@@ -361,6 +388,16 @@ class student_edit_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.edit_Button.clicked.connect(self.get_data)
+        self.delete_Button.clicked.connect(self.delete)
+        self.update_Button.clicked.connect(self.update)
+
+        for id in db.get_courses_ids():
+            for value in id:
+                self.course_Id.addItem(value)
+        for t_id in db.get_teacher_ids():
+            for t_value in t_id:
+                self.teacher_Id_Box.addItem(t_value)
 
     def back_function(self):
         self.close()
@@ -369,6 +406,25 @@ class student_edit_window(QMainWindow):
 
     def close_function(self):
         self.close()
+
+    def get_data(self):
+        id = self.id.text()
+        phone, gender, f_name, l_name, = db.get_student_data(id)
+        c_id, t_id = db.get_teacher_and_course_id(id)
+        course_id = (c_id,)
+        teacher_id = (t_id,)
+        self.first_Name.setText(f_name)
+        self.last_Name.setText(l_name)
+        self.phone.setText(phone)
+        self.gender.setText(gender)
+        self.teacher_Id_Box.setCurrentText(teacher_id[0])
+        self.course_Id.setCurrentText(course_id[0])
+
+    def update(self):
+        pass
+
+    def delete(self):
+        pass
 
 
 class fees_window(QMainWindow):
@@ -433,6 +489,16 @@ class course_edit_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.update_Button.clicked.connect(self.update)
+        self.edit_Button.clicked.connect(self.edit_data)
+        self.delete_Button.clicked.connect(self.delete)
+
+        for id in db.get_courses_ids():
+            for value in id:
+                self.course_Id_Box.addItem(value)
+        self.note_msg.setText('')
+        self.name.setText('')
+        self.price.setText('')
 
     def back_function(self):
         self.close()
@@ -441,6 +507,29 @@ class course_edit_window(QMainWindow):
 
     def close_function(self):
         self.close()
+
+    def edit_data(self):
+        id = (self.course_Id_Box.currentText(),)
+        name, price = db.get_course_data(id)
+        self.name.setText(name)
+        self.price.setText(str(price))
+
+    def update(self):
+        name = self.name.text()
+        id = self.course_Id_Box.currentText()
+        price = self.price.text()
+        new_id = self.new_id.text()
+        db.update_course(id, new_id, name, price)
+        self.note_msg.setText('course updated successfully')
+        self.course_Id_Box.clear()
+        for id in db.get_courses_ids():
+            for value in id:
+                self.course_Id_Box.addItem(value)
+
+    def delete(self):
+        id = (self.course_Id_Box.currentText(),)
+        db.delete_course(id)
+        self.note_msg.setText('course deleted successfully')
 
 
 class course_details_window(QMainWindow):
