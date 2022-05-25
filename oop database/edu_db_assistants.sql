@@ -39,7 +39,7 @@ CREATE TABLE `assistants` (
 
 LOCK TABLES `assistants` WRITE;
 /*!40000 ALTER TABLE `assistants` DISABLE KEYS */;
-INSERT INTO `assistants` VALUES ('aaEN1','mohamed','ali',3200,'male','English');
+INSERT INTO `assistants` VALUES ('aaEN1','ahmed','ali',2000,'male','English'),('ikEn1','mohamed','abdo',1800,'male','english');
 /*!40000 ALTER TABLE `assistants` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-25 15:26:44
+-- Dump completed on 2022-05-25 21:53:57

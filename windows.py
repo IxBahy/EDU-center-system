@@ -408,20 +408,28 @@ class student_edit_window(QMainWindow):
         self.close()
 
     def get_data(self):
-        id = self.id.text()
+        id = (self.id.text(),)
         phone, gender, f_name, l_name, = db.get_student_data(id)
         c_id, t_id = db.get_teacher_and_course_id(id)
         course_id = (c_id,)
         teacher_id = (t_id,)
         self.first_Name.setText(f_name)
         self.last_Name.setText(l_name)
-        self.phone.setText(phone)
+        self.phone.setText(str(phone))
         self.gender.setText(gender)
         self.teacher_Id_Box.setCurrentText(teacher_id[0])
         self.course_Id.setCurrentText(course_id[0])
 
     def update(self):
-        pass
+        id = self.id.text()
+        f_name = self.first_Name.text()
+        l_name = self.last_Name.text()
+        phone = int(self.phone.text())
+        gender = self.gender.text()
+        t_id = self.teacher_Id_Box.currentText()
+        c_id = self.course_Id.currentText()
+        db.update_student(id, f_name, l_name, t_id, phone, gender, c_id)
+        self.note_msg.setText('student updated successfully')
 
     def delete(self):
         pass

@@ -132,6 +132,12 @@ def get_student_data(id):
 
 def get_teacher_and_course_id(id):
     my_cursor.execute(
-        'select c_id,t_id from student_course_teacher where id = %s;', (id))
+        'select c_id,t_id from student_course_teacher where s_id = %s;', (id))
     result = my_cursor.fetchone()
     return result
+
+
+def update_student(id, f_name, l_name, t_id, phone, gender, c_id):
+    my_cursor.execute('call update_student(%s,%s,%s,%s,%s,%s,%s);',
+                      (id, f_name, l_name, t_id, phone, gender, c_id))
+    db.commit()

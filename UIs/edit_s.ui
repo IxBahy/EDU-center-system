@@ -490,6 +490,24 @@ padding-bottom:7px;</string>
       <string>ID number</string>
      </property>
     </widget>
+    <widget class="QLabel" name="note_msg">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>460</y>
+       <width>261</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgba(255, 255, 255, 0);
+color: rgb(143,0,0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
