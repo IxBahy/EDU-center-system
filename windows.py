@@ -186,8 +186,24 @@ class teacher_add_window(QMainWindow):
         l_name = self.last_Name.text()
         t_id = self.id.text()
         c_id = self.course_Id.currentText()
-        db.add_teacher(f_name, l_name, t_id, c_id)
-        self.note_msg.setText('teacher added successfully')
+        v_name = False
+        v_course = False
+        v_id = False
+        if len(f_name) == 0 or len(l_name) == 0:
+            self.note_msg.setText('input the name pleas')
+        else:
+            v_name = True
+        if c_id == 'choose a course':
+            self.note_msg.setText('select a course pleas')
+        else:
+            v_course = True
+        if len(t_id) == 0:
+            self.note_msg.setText('input an ID pleas')
+        else:
+            v_id = True
+        if v_name and v_course and v_id:
+            db.add_teacher(f_name, l_name, t_id, c_id)
+            self.note_msg.setText('teacher added successfully')
 
     def back_function(self):
         self.close()
@@ -245,8 +261,14 @@ class teacher_edit_window(QMainWindow):
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
         c_id = self.course_Id_Box.currentText()
-        db.update_teacher(t_id, f_name, l_name, c_id)
-        self.note_msg.setText('teacher updated successfully')
+        v_name = False
+        if len(f_name) == 0 or len(l_name) == 0:
+            self.note_msg.setText('input the name pleas')
+        else:
+            v_name = True
+        if v_name:
+            db.update_teacher(t_id, f_name, l_name, c_id)
+            self.note_msg.setText('teacher updated successfully')
 
     def delete(self):
         t_id = (self.teacher_Id_Box.currentText(),)
@@ -305,8 +327,36 @@ class assistant_add_window(QMainWindow):
         salary = self.salary.text()
         gender = self.gender.text()
         t_id = self.teacher_Id_Box.currentText()
-        db.add_assistant(t_id, f_name, l_name, salary, gender)
-        self.note_msg.setText('assistant added successfully')
+        v_name = False
+        v_salary = False
+        v_gender = False
+        v_t_id = False
+        if len(f_name) == 0 or len(l_name) == 0:
+            self.note_msg.setText('please input the name field')
+        else:
+            v_name = True
+
+        if len(gender) == 0:
+            self.note_msg.setText('please input the gender field')
+        else:
+            v_gender = True
+
+        if len(salary) == 0:
+            self.note_msg.setText('please input the salary field')
+        else:
+            if salary.strip().isdigit():
+                v_salary = True
+            else:
+                self.note_msg.setText('wrong value type in salary field')
+
+        if t_id == 'choose a teacher':
+            self.note_msg.setText('please select a teacher')
+        else:
+            v_t_id = True
+
+        if v_name and v_t_id and v_salary and v_gender:
+            db.add_assistant(t_id, f_name, l_name, salary, gender)
+            self.note_msg.setText('assistant added successfully')
         self.assistant_box.clear()
         self.assistant_box.addItem("choose an assistant")
         for names in db.get_assistant_name():
@@ -484,8 +534,27 @@ class course_add_window(QMainWindow):
         name = self.name.text()
         id = self.id.text()
         price = self.price.text()
-        db.add_course(name, id, price)
-        self.note_msg.setText('course added successfully')
+        v_name = False
+        v_id = False
+        v_price = False
+        if len(name) == 0:
+            self.note_msg.setText('input the name field please')
+        else:
+            v_name = True
+        if len(id) == 0:
+            self.note_msg.setText('input the ID field please')
+        else:
+            v_id = True
+        if len(price) == 0:
+            self.note_msg.setText('input the price field please')
+        else:
+            if price.strip().isdigit():
+                v_price = True
+            else:
+                self.note_msg.setText('wrong value type in price field')
+        if v_name and v_id and v_price:
+            db.add_course(name, id, price)
+            self.note_msg.setText('course added successfully')
 
 
 class course_edit_window(QMainWindow):
@@ -529,8 +598,29 @@ class course_edit_window(QMainWindow):
         id = self.course_Id_Box.currentText()
         price = self.price.text()
         new_id = self.new_id.text()
-        db.update_course(id, new_id, name, price)
-        self.note_msg.setText('course updated successfully')
+        v_name = False
+        v_id = False
+        v_price = False
+        if len(name) == 0:
+            self.note_msg.setText('please input the user field')
+        else:
+            v_name = True
+        if len(new_id) == 0 or id == 'choose a course':
+            self.note_msg.setText('please check the ID fields')
+        else:
+            v_id = True
+        if len(price) == 0:
+            self.note_msg.setText('please input the price field')
+        else:
+            if price.strip().isdigit():
+                v_price = True
+            else:
+                self.note_msg.setText('wrong value type in price field')
+                print(type(price))
+
+        if v_name and v_price and v_id:
+            db.update_course(id, new_id, name, price)
+            self.note_msg.setText('course updated successfully')
         self.course_Id_Box.clear()
         for id in db.get_courses_ids():
             for value in id:
