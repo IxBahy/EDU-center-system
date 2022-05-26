@@ -29,7 +29,8 @@ CREATE TABLE `assistants` (
   `salary` int(11) DEFAULT NULL,
   `gender` varchar(50) DEFAULT NULL,
   `course` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`teacher_id`,`first_name`,`last_name`)
+  PRIMARY KEY (`teacher_id`,`first_name`,`last_name`),
+  CONSTRAINT `teacher_FK` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-25 22:07:57
+-- Dump completed on 2022-05-26 13:52:58
