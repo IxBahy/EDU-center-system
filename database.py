@@ -51,12 +51,6 @@ def add_assistant(t_id, f_name, l_name, salary, gender):
     db.commit()
 
 
-def get_std_count(id):
-    my_cursor.execute('call get_std_count(%s);', (id))
-    result = my_cursor.fetchone
-    return
-
-
 def get_courses_ids():
     my_cursor.execute('Select id from courses;')
     result = my_cursor.fetchall()
@@ -144,7 +138,20 @@ def update_student(id, f_name, l_name, t_id, phone, gender, c_id):
 
 
 def delete_student(id):
-    my_cursor.execute('delete from students where id=%s', (id))
+    my_cursor.execute(
+        'call delete_student(%s);', (id))
+    my_cursor.execute('select count(s_id) from student_course_teacher')
+    result_1 = my_cursor.fetchone()
+    if result_1[0] is not None and result_1[0] > 0:
+        my_cursor.execute(
+            'alter table student_course_teacher auto_increment=%s;', ((result_1[0]+1,)))
+        my_cursor.execute(
+            'alter table students auto_increment=%s;', ((result_1[0]+1,)))
+    elif result_1[0] == 0:
+        my_cursor.execute(
+            'alter table student_course_teacher auto_increment= 1 ;')
+        my_cursor.execute(
+            'alter table students auto_increment= 1 ;')
     db.commit()
 
 
@@ -167,3 +174,73 @@ def get_t_ids(c_id):
         'select id from teachers where course=(select name from courses where id = %s)', (c_id))
     result = my_cursor.fetchall()
     return result
+
+
+def get_assistant_count(id):
+    my_cursor.execute(
+        'select count(*) from assistants  where teacher_id =%s', (id))
+    result = my_cursor.fetchone()
+    if result is None:
+        result = 0
+        return result
+    else:
+        return result[0]
+
+
+def get_teacher_count(c_id):
+    my_cursor.execute(
+        'select count(id) from teachers where course = (select name from courses where id= %s)', (c_id))
+    result = my_cursor.fetchone()
+    if result is None:
+        result = 0
+        return result
+    else:
+        return result[0]
+
+
+def course_enrollment(c_id):
+    my_cursor.execute(
+        'select count(s_id) from student_course_teacher where c_id = %s ;', (c_id))
+    result = my_cursor.fetchone()
+    if result is None:
+        result = 0
+        return result
+    else:
+        return result[0]
+
+
+def number_of_students(t_id):
+
+    my_cursor.execute(
+        'select count(s_id)  from student_course_teacher where t_id = %s;', (t_id))
+    result = my_cursor.fetchone()
+    if result is None:
+        result = 0
+        return result
+    else:
+        return result[0]
+
+
+def total_Salaries(t_id):
+    my_cursor.execute(
+        'SELECT SUM(salary) from assistants where teacher_id = %s;', (t_id))
+    result = my_cursor.fetchone()
+    if result is None:
+        result = 0
+        return result
+    else:
+        return result[0]
+
+
+def total_income(t_id):
+    var = 0
+    args = (t_id[0], var)
+    result = my_cursor.callproc('TotalIncome', args)
+    return result[1]
+
+
+def total_course_income(c_id):
+    var = 0
+    args = (c_id[0], var)
+    result = my_cursor.callproc('total_course_income', args)
+    return result[1]

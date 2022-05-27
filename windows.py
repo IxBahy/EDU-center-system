@@ -54,7 +54,7 @@ class student_main_window(QMainWindow):
         self.BackButton.clicked.connect(self.back_function)
         self.add_studentButton.clicked.connect(self.open_add_window)
         self.edit_studentButton.clicked.connect(self.open_edit_window)
-        self.fees_button.clicked.connect(self.open_fees_window)
+        # self.fees_button.clicked.connect(self.open_fees_window)
 
     def close_function(self):
         self.close()
@@ -74,10 +74,10 @@ class student_main_window(QMainWindow):
         self.main = student_edit_window()
         self.main.show()
 
-    def open_fees_window(self):
-        self.close()
-        self.main = fees_window()
-        self.main.show()
+    # def open_fees_window(self):
+    #     self.close()
+    #     self.main = fees_window()
+    #     self.main.show()
 
 
 class teacher_main_window(QMainWindow):
@@ -414,6 +414,21 @@ class teacher_stats_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.show_Button.clicked.connect(self.show_function)
+        for t_id in db.get_teacher_ids():
+            for t_value in t_id:
+                self.teacher_Id_Box.addItem(t_value)
+
+    def show_function(self):
+        id = (self.teacher_Id_Box.currentText(),)
+        assistant_number = db.get_assistant_count(id)
+        self.assistants_Count.setText(str(assistant_number))
+        student_number = db.number_of_students(id)
+        self.students_Count.setText(str(student_number))
+        total_salaries = db.total_Salaries(id)
+        self.total_Salaries.setText(str(total_salaries))
+        total_income = db.total_income(id)
+        self.total_Income.setText(str(total_income))
 
     def back_function(self):
         self.close()
@@ -507,10 +522,11 @@ class student_add_window(QMainWindow):
         if len(phone) == 0:
             self.note_msg.setText('please input the phone field')
         else:
-            if phone.strip().isdigit():
-                self.note_msg.setText('please put a valid number')
-            else:
+            if phone.isdigit():
                 v_phone = True
+            else:
+                self.note_msg.setText('please put a valid number')
+
         if gender == 'choose a gender':
             self.note_msg.setText('please choose a gender')
         else:
@@ -645,9 +661,9 @@ class student_edit_window(QMainWindow):
             self.note_msg.setText('please input the phone field')
         else:
             if phone.strip().isdigit():
-                self.note_msg.setText('please put a valid number')
-            else:
                 v_phone = True
+            else:
+                self.note_msg.setText('please put a valid number')
         if gender == 'choose a gender':
             self.note_msg.setText('please choose a gender')
         else:
@@ -669,6 +685,7 @@ class student_edit_window(QMainWindow):
             self.note_msg.setText('student deleted successfully')
 
 
+""" fee class:
 class fees_window(QMainWindow):
     def __init__(self):
         super(fees_window, self).__init__()
@@ -688,6 +705,7 @@ class fees_window(QMainWindow):
 
     def close_function(self):
         self.close()
+"""
 
 
 class course_add_window(QMainWindow):
@@ -851,6 +869,19 @@ class course_details_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.show_Button.clicked.connect(self.show_function)
+        for id in db.get_courses_ids():
+            for value in id:
+                self.course_Id_Box.addItem(value)
+
+    def show_function(self):
+        id = (self.course_Id_Box.currentText(),)
+        enrolements = db.course_enrollment(id)
+        self.enrol_Number.setText(str(enrolements))
+        teachers_number = db.get_teacher_count(id)
+        self.teachers_Count.setText(str(teachers_number))
+        course_income = db.total_course_income(id)
+        self.total_Income.setText(str(course_income))
 
     def back_function(self):
         self.close()
