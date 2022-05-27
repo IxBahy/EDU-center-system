@@ -180,6 +180,12 @@ class teacher_add_window(QMainWindow):
             for value in id:
                 self.course_Id.addItem(value)
         self.note_msg.setText('')
+        self.load_list()
+
+    def load_list(self):
+        self.teachers_List.clear()
+        for result in db.teacher_info():
+            self.teachers_List.addItem(result[0])
 
     def add(self):
         f_name = self.first_Name.text()
@@ -210,6 +216,7 @@ class teacher_add_window(QMainWindow):
         if v_name and v_course and v_id and v_duplication:
             db.add_teacher(f_name, l_name, t_id, c_id)
             self.note_msg.setText('teacher added successfully')
+            self.load_list()
 
     def back_function(self):
         self.close()
@@ -240,10 +247,10 @@ class teacher_edit_window(QMainWindow):
         self.note_msg.setText('')
         self.first_Name.setText('')
         self.last_Name.setText('')
-        self.course_Id_Box.setCurrentText('choose a course')
+        self.course_Id.setCurrentText('choose a course')
         for id in db.get_courses_ids():
             for value in id:
-                self.course_Id_Box.addItem(value)
+                self.course_Id.addItem(value)
 
     def back_function(self):
         self.close()
@@ -262,7 +269,7 @@ class teacher_edit_window(QMainWindow):
             self.last_Name.setText(l_name)
             c_name = (course,)
             c_id = db.get_course_id_by_name(c_name)
-            self.course_Id_Box.setCurrentText(c_id[0])
+            self.course_Id.setCurrentText(c_id[0])
             self.teacher_Id_Box.clear()
             self.teacher_Id_Box.addItem('choose a teacher')
             for id in db.get_teacher_ids():
@@ -275,7 +282,7 @@ class teacher_edit_window(QMainWindow):
         t_id = self.teacher_Id_Box.currentText()
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
-        c_id = self.course_Id_Box.currentText()
+        c_id = self.course_Id.currentText()
         v_name = False
         if len(f_name) == 0 or len(l_name) == 0:
             self.note_msg.setText('input the name pleas')
@@ -721,6 +728,12 @@ class course_add_window(QMainWindow):
         self.BackButton.clicked.connect(self.back_function)
         self.add_Button.clicked.connect(self.add)
         self.note_msg.setText('')
+        self.fill_list()
+
+    def fill_list(self):
+        self.courses_List.clear()
+        for result in db.course_info():
+            self.courses_List.addItem(result[0])
 
     def back_function(self):
         self.close()
@@ -761,6 +774,7 @@ class course_add_window(QMainWindow):
         if v_name and v_id and v_price and v_duplication:
             db.add_course(name, id, price)
             self.note_msg.setText('course added successfully')
+            self.fill_list()
 
 
 class course_edit_window(QMainWindow):
@@ -780,7 +794,7 @@ class course_edit_window(QMainWindow):
 
         for id in db.get_courses_ids():
             for value in id:
-                self.course_Id_Box.addItem(value)
+                self.course_Id.addItem(value)
         self.note_msg.setText('')
         self.name.setText('')
         self.price.setText('')
@@ -795,23 +809,23 @@ class course_edit_window(QMainWindow):
 
     def edit_data(self):
 
-        id = (self.course_Id_Box.currentText(),)
+        id = (self.course_Id.currentText(),)
         result = db.get_course_data(id)
         if result is not None:
             name, price = result
             self.name.setText(name)
             self.price.setText(str(price))
-            self.course_Id_Box.clear()
-            self.course_Id_Box.addItem('choose a course')
+            self.course_Id.clear()
+            self.course_Id.addItem('choose a course')
             for id in db.get_courses_ids():
                 for value in id:
-                    self.course_Id_Box.addItem(value)
+                    self.course_Id.addItem(value)
         else:
             self.note_msg.setText('choose a valid ID')
 
     def update(self):
         name = self.name.text()
-        id = self.course_Id_Box.currentText()
+        id = self.course_Id.currentText()
         price = self.price.text()
         new_id = self.new_id.text()
         v_name = False
@@ -837,22 +851,22 @@ class course_edit_window(QMainWindow):
         if v_name and v_price and v_id:
             db.update_course(id, new_id, name, price)
             self.note_msg.setText('course updated successfully')
-            self.course_Id_Box.clear()
-            self.course_Id_Box.addItem('choose a course')
+            self.course_Id.clear()
+            self.course_Id.addItem('choose a course')
             for id in db.get_courses_ids():
                 for value in id:
-                    self.course_Id_Box.addItem(value)
+                    self.course_Id.addItem(value)
 
     def delete(self):
-        if self.course_Id_Box.currentText() != 'choose a course':
-            id = (self.course_Id_Box.currentText(),)
+        if self.course_Id.currentText() != 'choose a course':
+            id = (self.course_Id.currentText(),)
             db.delete_course(id)
             self.note_msg.setText('course deleted successfully')
-            self.course_Id_Box.clear()
-            self.course_Id_Box.addItem('choose a course')
+            self.course_Id.clear()
+            self.course_Id.addItem('choose a course')
             for id in db.get_courses_ids():
                 for value in id:
-                    self.course_Id_Box.addItem(value)
+                    self.course_Id.addItem(value)
 
         else:
             self.note_msg.setText('choose a valid ID')
@@ -872,10 +886,10 @@ class course_details_window(QMainWindow):
         self.show_Button.clicked.connect(self.show_function)
         for id in db.get_courses_ids():
             for value in id:
-                self.course_Id_Box.addItem(value)
+                self.course_Id.addItem(value)
 
     def show_function(self):
-        id = (self.course_Id_Box.currentText(),)
+        id = (self.course_Id.currentText(),)
         enrolements = db.course_enrollment(id)
         self.enrol_Number.setText(str(enrolements))
         teachers_number = db.get_teacher_count(id)

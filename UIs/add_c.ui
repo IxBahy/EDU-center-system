@@ -123,7 +123,7 @@ color:rgb(170, 170, 170);
 	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#BackButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -241,7 +241,7 @@ padding-bottom:7px;</string>
 	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#add_Button:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -262,7 +262,7 @@ color:rgb(170, 170, 170);
       <string>Add course</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="teachers_List">
+    <widget class="QListWidget" name="courses_List">
      <property name="geometry">
       <rect>
        <x>350</x>
@@ -272,25 +272,29 @@ color:rgb(170, 170, 170);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">background-color: rgb(255, 255, 255);
+font: 57 11pt &quot;Dubai Medium&quot;;
+color: rgba(0, 0, 0,220);
+QListWidget#courses_List::item { border-bottom: 2px solid black };
+</string>
      </property>
     </widget>
     <widget class="QLabel" name="list_Name">
      <property name="geometry">
       <rect>
-       <x>440</x>
-       <y>30</y>
-       <width>221</width>
+       <x>470</x>
+       <y>40</y>
+       <width>171</width>
        <height>121</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Cascadia Code ExtraLight</family>
+       <family>Dubai Medium</family>
        <pointsize>26</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
        <underline>false</underline>
        <strikeout>false</strikeout>
        <stylestrategy>NoAntialias</stylestrategy>
@@ -303,57 +307,6 @@ background:none;</string>
      </property>
      <property name="text">
       <string>courses</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="Program_name">
-     <property name="geometry">
-      <rect>
-       <x>210</x>
-       <y>-50</y>
-       <width>331</width>
-       <height>161</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Cascadia Code ExtraLight</family>
-       <pointsize>32</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
-       <underline>false</underline>
-       <strikeout>false</strikeout>
-       <stylestrategy>NoAntialias</stylestrategy>
-       <kerning>true</kerning>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color:rgb(22, 60, 73);
-background:none;</string>
-     </property>
-     <property name="text">
-      <string>Add course</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="DarkShade_2">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>130</y>
-       <width>370</width>
-       <height>350</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgba(0,0,0,20);
-border-radius:15px;
-</string>
-     </property>
-     <property name="text">
-      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="note_msg">
@@ -377,6 +330,15 @@ color: rgb(143,0,0);</string>
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>name</tabstop>
+  <tabstop>price</tabstop>
+  <tabstop>id</tabstop>
+  <tabstop>add_Button</tabstop>
+  <tabstop>courses_List</tabstop>
+  <tabstop>BackButton</tabstop>
+  <tabstop>exit_button</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

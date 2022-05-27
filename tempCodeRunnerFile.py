@@ -1,1 +1,1 @@
-add_assistant('aaEN1', 'ahmed', 'ali', 2000, 'male')
+print(teacher_info())

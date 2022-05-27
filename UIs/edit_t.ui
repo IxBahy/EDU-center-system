@@ -98,19 +98,19 @@ color:rgb(170, 170, 170);
     <widget class="QLabel" name="Program_name">
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>-20</y>
-       <width>291</width>
+       <x>280</x>
+       <y>-10</y>
+       <width>201</width>
        <height>121</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Cascadia Code ExtraLight</family>
+       <family>Dubai Medium</family>
        <pointsize>32</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
        <underline>false</underline>
        <strikeout>false</strikeout>
        <stylestrategy>NoAntialias</stylestrategy>
@@ -153,7 +153,7 @@ background:none;</string>
 	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#BackButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -202,7 +202,7 @@ color:rgb(170, 170, 170);
 	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#edit_Button:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -251,7 +251,7 @@ color:rgb(170, 170, 170);
 	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#delete_Button:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -322,7 +322,7 @@ padding-bottom:7px;</string>
       <string>Last Name</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="course_Id_Box">
+    <widget class="QComboBox" name="course_Id">
      <property name="geometry">
       <rect>
        <x>250</x>
@@ -332,7 +332,8 @@ padding-bottom:7px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 0, 0,0);
+      <string notr="true">font: 57 12pt &quot;Dubai Medium&quot;;
+background-color: rgba(0, 0, 0,0);
 border:none;
 border-bottom:2px solid rgba(105,118,132,255);
 color:rgba(255, 255, 255,230);
@@ -369,7 +370,7 @@ padding-bottom:7px;</string>
 	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#update_Button:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -400,7 +401,8 @@ color:rgb(170, 170, 170);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 0, 0,0);
+      <string notr="true">font: 57 12pt &quot;Dubai Medium&quot;;
+background-color: rgba(0, 0, 0,0);
 border:none;
 border-bottom:2px solid rgba(105,118,132,255);
 color:rgba(255, 255, 255,230);

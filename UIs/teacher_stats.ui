@@ -98,19 +98,19 @@ color:rgb(170, 170, 170);
     <widget class="QLabel" name="Program_name">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>-10</y>
-       <width>471</width>
+       <x>230</x>
+       <y>0</y>
+       <width>291</width>
        <height>121</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Cascadia Code ExtraLight</family>
+       <family>Dubai Medium</family>
        <pointsize>28</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
        <underline>false</underline>
        <strikeout>false</strikeout>
        <stylestrategy>NoAntialias</stylestrategy>
@@ -149,11 +149,9 @@ background:none;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton#BackButton{
-	
-	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+	color:rgb(200,200,200);
 }
 QPushButton#BackButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -184,11 +182,23 @@ color:rgb(170, 170, 170);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 0, 0,0);
+      <string notr="true">font: 57 12pt &quot;Dubai Medium&quot;;
+background-color: rgba(0, 0, 0,0);
 border:none;
 border-bottom:2px solid rgba(105,118,132,255);
 color:rgba(255, 255, 255,230);
-padding-bottom:7px;</string>
+padding-bottom:7px;
+
+
+
+QcomboBox #teacher_Id_Box :on{
+	background-color: rgba(0, 0, 0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255, 255, 255,230);
+padding-bottom:7px;
+
+}</string>
      </property>
      <property name="placeholderText">
       <string/>
@@ -223,11 +233,9 @@ padding-bottom:7px;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton#show_Button{
-	
-	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-	color:rgb(255, 255, 255);
+color:rgb(200,200,200);
 }
 QPushButton#show_Button:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -355,11 +363,11 @@ padding-bottom:7px;</string>
   <tabstop>teacher_Id_Box</tabstop>
   <tabstop>show_Button</tabstop>
   <tabstop>assistants_Count</tabstop>
+  <tabstop>students_Count</tabstop>
+  <tabstop>total_Salaries</tabstop>
+  <tabstop>total_Income</tabstop>
   <tabstop>BackButton</tabstop>
   <tabstop>exit_button</tabstop>
-  <tabstop>total_Salaries</tabstop>
-  <tabstop>students_Count</tabstop>
-  <tabstop>total_Income</tabstop>
  </tabstops>
  <resources/>
  <connections/>

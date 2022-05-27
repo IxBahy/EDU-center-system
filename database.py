@@ -244,3 +244,19 @@ def total_course_income(c_id):
     args = (c_id[0], var)
     result = my_cursor.callproc('total_course_income', args)
     return result[1]
+
+
+def teacher_info():
+    sql = ('select concat("Name: ",teachers.first_name," ",teachers.last_name, ". ID: " ,teachers. id,". Course ID: ",(select courses.id where name=teachers.course)," ")\
+         as TeacherInfo from teachers left join courses\
+        on teachers.course=courses.name where courses.id is not null;')
+    my_cursor.execute(sql)
+    result = my_cursor.fetchall()
+    return result
+
+
+def course_info():
+    sql = ('select concat("Name: ",name,". Price: ",price," . ID: ", id)  from courses;')
+    my_cursor.execute(sql)
+    result = my_cursor.fetchall()
+    return result

@@ -17,8 +17,8 @@
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>-9</y>
+      <x>40</x>
+      <y>30</y>
       <width>370</width>
       <height>480</height>
      </rect>
@@ -284,7 +284,7 @@ padding-bottom:7px;</string>
 	
 	background-color: qlineargradient(spread:pad, x1:0.512, y1:0.512, x2:1, y2:1, stop:0.0447761 rgba(8, 54, 67, 255), stop:1 rgba(18, 118, 145, 255));
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#SignButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -331,7 +331,7 @@ color:rgb(170, 170, 170);
 	
 	background-color: qlineargradient(spread:pad, x1:0.512, y1:0.512, x2:1, y2:1, stop:0.0447761 rgba(8, 54, 67, 255), stop:1 rgba(18, 118, 145, 255));
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#BackButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -353,16 +353,6 @@ color:rgb(170, 170, 170);
      </property>
     </widget>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>446</width>
-     <height>26</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

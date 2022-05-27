@@ -101,19 +101,19 @@ color:rgb(170, 170, 170);
     <widget class="QLabel" name="Program_name">
      <property name="geometry">
       <rect>
-       <x>270</x>
-       <y>-20</y>
-       <width>291</width>
+       <x>290</x>
+       <y>0</y>
+       <width>201</width>
        <height>121</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Cascadia Code ExtraLight</family>
+       <family>Dubai Medium</family>
        <pointsize>32</pointsize>
-       <weight>75</weight>
-       <italic>true</italic>
-       <bold>true</bold>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
        <underline>false</underline>
        <strikeout>false</strikeout>
        <stylestrategy>NoAntialias</stylestrategy>
@@ -148,7 +148,7 @@ background:none;</string>
       <string notr="true">QPushButton#Add_teacherButton{
 	background-color: rgb(9, 57, 71);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#Add_teacherButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -197,7 +197,7 @@ color:rgb(170, 170, 170);
 	
 	background-color: rgb(9, 57, 71);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#edit_TeacherButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -246,7 +246,7 @@ color:rgb(170, 170, 170);
 	
 	background-color: rgb(11, 72, 89);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#BackButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -287,7 +287,7 @@ color:rgb(170, 170, 170);
       <string notr="true">QPushButton#add_assistantButton{
 	background-color: rgb(9, 57, 71);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#add_assistantButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -328,7 +328,7 @@ color:rgb(170, 170, 170);
       <string notr="true">QPushButton#stats_Button{
 	background-color: rgb(9, 57, 71);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#stats_Button:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -352,6 +352,14 @@ color:rgb(170, 170, 170);
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>Add_teacherButton</tabstop>
+  <tabstop>edit_TeacherButton</tabstop>
+  <tabstop>add_assistantButton</tabstop>
+  <tabstop>stats_Button</tabstop>
+  <tabstop>BackButton</tabstop>
+  <tabstop>exit_button</tabstop>
+ </tabstops>
  <resources>
   <include location="resourse/oop_res.qrc"/>
  </resources>

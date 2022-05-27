@@ -55,19 +55,19 @@ border-radius:15px;
    <widget class="QLabel" name="Program_name">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>30</x>
       <y>180</y>
-      <width>241</width>
+      <width>251</width>
       <height>121</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <family>Cascadia Code ExtraLight</family>
-      <pointsize>32</pointsize>
-      <weight>75</weight>
-      <italic>true</italic>
-      <bold>true</bold>
+      <family>Dubai Medium</family>
+      <pointsize>38</pointsize>
+      <weight>50</weight>
+      <italic>false</italic>
+      <bold>false</bold>
       <underline>false</underline>
       <strikeout>false</strikeout>
       <stylestrategy>NoAntialias</stylestrategy>
@@ -101,7 +101,7 @@ border-radius:15px;
      <string notr="true">QPushButton#TeacherButton{
 	background-color: rgb(9, 57, 71);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#TeacherButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -150,7 +150,7 @@ color:rgb(170, 170, 170);
 	
 	background-color: rgb(9, 57, 71);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#StudentButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -193,7 +193,7 @@ color:rgb(170, 170, 170);
 	
 	background-color: rgb(9, 57, 71);
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#CoursesButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));

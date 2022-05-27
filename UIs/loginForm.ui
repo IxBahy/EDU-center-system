@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>446</width>
+    <width>408</width>
     <height>541</height>
    </rect>
   </property>
@@ -127,7 +127,7 @@ border-radius:15px;
     </property>
     <property name="styleSheet">
      <string notr="true">color:
-rgba(204, 204, 204,210)</string>
+rgba(204, 204, 204,220)</string>
     </property>
     <property name="text">
      <string>EDU Center
@@ -207,7 +207,7 @@ padding-bottom:7px;</string>
      <string notr="true">QPushButton#LoginButton{
 	background-color: qlineargradient(spread:pad, x1:0.512, y1:0.512, x2:1, y2:1, stop:0.0447761 rgba(8, 54, 67, 255), stop:1 rgba(18, 118, 145, 255));
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#LoginButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
@@ -271,7 +271,7 @@ color:rgb(170, 170, 170);
 	
 background-color: qlineargradient(spread:pad, x1:0.512, y1:0.512, x2:1, y2:1, stop:0.0447761 rgba(8, 54, 67, 255), stop:1 rgba(18, 118, 145, 255));
 	border-radius:5px;
-color:rgb(170, 170, 170);
+color:rgb(200,200,200);
 }
 QPushButton#Sign_upButton:hover{	
 	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
