@@ -1,7 +1,7 @@
 import oop_res
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow, QComboBox
 import sys
 import database as db
 from database import my_cursor
@@ -189,6 +189,12 @@ class teacher_add_window(QMainWindow):
         v_name = False
         v_course = False
         v_id = False
+        v_duplication = False
+
+        if db.get_teacher_data((t_id,)) is None:
+            v_duplication = True
+        else:
+            self.note_msg.setText('ID already exsist')
         if len(f_name) == 0 or len(l_name) == 0:
             self.note_msg.setText('input the name pleas')
         else:
@@ -201,7 +207,7 @@ class teacher_add_window(QMainWindow):
             self.note_msg.setText('input an ID pleas')
         else:
             v_id = True
-        if v_name and v_course and v_id:
+        if v_name and v_course and v_id and v_duplication:
             db.add_teacher(f_name, l_name, t_id, c_id)
             self.note_msg.setText('teacher added successfully')
 
@@ -249,12 +255,21 @@ class teacher_edit_window(QMainWindow):
 
     def get_teacher_data(self):
         id = (self.teacher_Id_Box.currentText(),)
-        f_name, l_name, course = db.get_teacher_data(id)
-        self.first_Name.setText(f_name)
-        self.last_Name.setText(l_name)
-        c_name = (course,)
-        c_id = db.get_course_id_by_name(c_name)
-        self.course_Id_Box.setCurrentText(c_id[0])
+        result = db.get_teacher_data(id)
+        if result is not None:
+            f_name, l_name, course = result
+            self.first_Name.setText(f_name)
+            self.last_Name.setText(l_name)
+            c_name = (course,)
+            c_id = db.get_course_id_by_name(c_name)
+            self.course_Id_Box.setCurrentText(c_id[0])
+            self.teacher_Id_Box.clear()
+            self.teacher_Id_Box.addItem('choose a teacher')
+            for id in db.get_teacher_ids():
+                for value in id:
+                    self.teacher_Id_Box.addItem(value)
+        else:
+            self.note_msg.setText('choose a teacher ID')
 
     def update(self):
         t_id = self.teacher_Id_Box.currentText()
@@ -269,11 +284,24 @@ class teacher_edit_window(QMainWindow):
         if v_name:
             db.update_teacher(t_id, f_name, l_name, c_id)
             self.note_msg.setText('teacher updated successfully')
+            self.teacher_Id_Box.clear()
+            self.teacher_Id_Box.addItem('choose a teacher')
+            for id in db.get_teacher_ids():
+                for value in id:
+                    self.teacher_Id_Box.addItem(value)
 
     def delete(self):
         t_id = (self.teacher_Id_Box.currentText(),)
-        db.delete_teacher(t_id)
-        self.note_msg.setText('teacher deleted successfully')
+        if self.teacher_Id_Box.currentText() != 'choose a teacher':
+            db.delete_teacher(t_id)
+            self.note_msg.setText('teacher deleted successfully')
+            self.teacher_Id_Box.clear()
+            self.teacher_Id_Box.addItem('choose a teacher')
+            for id in db.get_teacher_ids():
+                for value in id:
+                    self.teacher_Id_Box.addItem(value)
+        else:
+            self.note_msg.setText('choose a teacher')
 
 
 class assistant_add_window(QMainWindow):
@@ -308,29 +336,38 @@ class assistant_add_window(QMainWindow):
         self.close()
 
     def delete(self):
-        name = (self.assistant_box.currentText()).split()
-        f_name = name[0]
-        l_name = name[1]
-        db.delete_assistant(f_name, l_name)
-        self.note_msg.setText('assistant deleted successfully')
-        self.assistant_box.clear()
-        self.assistant_box.addItem("choose an assistant")
-        for names in db.get_assistant_name():
-            full_name = ''
-            for value in names:
-                full_name += value+' '
-            self.assistant_box.addItem(full_name)
+        if self.assistant_box.currentText() == 'choose an assistant':
+            self.note_msg.setText('choose an assistant')
+
+        else:
+            name = (self.assistant_box.currentText()).split()
+            f_name = name[0]
+            l_name = name[1]
+            db.delete_assistant(f_name, l_name)
+            self.note_msg.setText('assistant deleted successfully')
+            self.assistant_box.clear()
+            self.assistant_box.addItem("choose an assistant")
+            for names in db.get_assistant_name():
+                full_name = ''
+                for value in names:
+                    full_name += value+' '
+                self.assistant_box.addItem(full_name)
 
     def add(self):
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
         salary = self.salary.text()
-        gender = self.gender.text()
+        gender = self.gender.currentText()
         t_id = self.teacher_Id_Box.currentText()
         v_name = False
         v_salary = False
         v_gender = False
         v_t_id = False
+        v_duplication = False
+        if db.assistant_check(f_name, l_name) is None:
+            v_duplication = True
+        else:
+            self.note_msg.setText('assistant already exsist')
         if len(f_name) == 0 or len(l_name) == 0:
             self.note_msg.setText('please input the name field')
         else:
@@ -354,7 +391,7 @@ class assistant_add_window(QMainWindow):
         else:
             v_t_id = True
 
-        if v_name and v_t_id and v_salary and v_gender:
+        if v_name and v_duplication and v_t_id and v_salary and v_gender:
             db.add_assistant(t_id, f_name, l_name, salary, gender)
             self.note_msg.setText('assistant added successfully')
         self.assistant_box.clear()
@@ -400,13 +437,49 @@ class student_add_window(QMainWindow):
         self.BackButton.clicked.connect(self.back_function)
         self.add_Button.clicked.connect(self.add)
         self.note_msg.setText('')
+        self.combo1 = self.findChild(QComboBox, 'teacher_Id_Box')
+        self.combo2 = self.findChild(QComboBox, 'course_Id')
         for c_id in db.get_courses_ids():
             for c_value in c_id:
-                self.course_Id.addItem(c_value)
+                items = []
+                for item in self.get_t_ids(c_value):
+                    items += item
+                self.combo2.addItem(c_value, items)
 
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
-                self.teacher_Id_Box.addItem(t_value)
+                self.combo1.addItem(t_value, self.get_c_ids(t_value))
+
+        self.combo1.activated.connect(self.t_clicker)
+        self.combo2.activated.connect(self.c_clicker)
+
+    def t_clicker(self, index):
+        if self.teacher_Id_Box.currentText() != 'choose a teacher':
+            self.combo2.clear()
+            self.course_Id.addItem('choose a course')
+            self.combo2.addItem(self.combo1.itemData(index))
+        elif self.teacher_Id_Box.currentText() == 'choose a teacher':
+            self.course_Id.clear()
+            self.course_Id.addItem('choose a course')
+            for c_id in db.get_courses_ids():
+                for c_value in c_id:
+                    items = []
+                    for item in self.get_t_ids(c_value):
+                        items += item
+                self.combo2.addItem(c_value, items)
+
+    def c_clicker(self, index):
+        if self.teacher_Id_Box.currentText() == 'choose a teacher':
+            if self.course_Id.currentText() != 'choose a course':
+                self.combo1.clear()
+                self.teacher_Id_Box.addItem('choose a teacher')
+                self.combo1.addItems(self.combo2.itemData(index))
+            else:
+                self.teacher_Id_Box.clear()
+                self.teacher_Id_Box.addItem('choose a teacher')
+                for t_id in db.get_teacher_ids():
+                    for t_value in t_id:
+                        self.combo1.addItem(t_value, self.get_c_ids(t_value))
 
     def back_function(self):
         self.close()
@@ -422,9 +495,41 @@ class student_add_window(QMainWindow):
         phone = self.phone.text()
         c_id = self.course_Id.currentText()
         t_id = self.teacher_Id_Box.currentText()
-        gender = self.gender.text()
-        db.add_student(f_name, l_name, phone, gender, c_id, t_id)
-        self.note_msg.setText('student added successfully')
+        gender = self.gender.currentText()
+        v_name = False
+        v_phone = False
+        v_gender = False
+        v_check_box = False
+        if len(f_name) == 0 or len(l_name) == 0:
+            self.note_msg.setText('please input the student field')
+        else:
+            v_name = True
+        if len(phone) == 0:
+            self.note_msg.setText('please input the phone field')
+        else:
+            if phone.strip().isdigit():
+                self.note_msg.setText('please put a valid number')
+            else:
+                v_phone = True
+        if gender == 'choose a gender':
+            self.note_msg.setText('please choose a gender')
+        else:
+            v_gender = True
+        if t_id == 'choose a teacher' or c_id == 'choose a course':
+            self.note_msg.setText('please choose the IDs')
+        else:
+            v_check_box = True
+        if v_check_box and v_name and v_phone and v_gender:
+            db.add_student(f_name, l_name, phone, gender, c_id, t_id)
+            self.note_msg.setText('student added successfully')
+
+    def get_c_ids(self, value):
+        result = db.get_c_ids((value,))
+        return result[0]
+
+    def get_t_ids(self, value):
+        result = db.get_t_ids((value,))
+        return result
 
 
 class student_edit_window(QMainWindow):
@@ -442,12 +547,57 @@ class student_edit_window(QMainWindow):
         self.delete_Button.clicked.connect(self.delete)
         self.update_Button.clicked.connect(self.update)
 
-        for id in db.get_courses_ids():
-            for value in id:
-                self.course_Id.addItem(value)
+        self.combo1 = self.findChild(QComboBox, 'teacher_Id_Box')
+        self.combo2 = self.findChild(QComboBox, 'course_Id')
+        for c_id in db.get_courses_ids():
+            for c_value in c_id:
+                items = []
+                for item in self.get_t_ids(c_value):
+                    items += item
+                self.combo2.addItem(c_value, items)
+
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
-                self.teacher_Id_Box.addItem(t_value)
+                self.combo1.addItem(t_value, self.get_c_ids(t_value))
+
+        self.combo1.activated.connect(self.t_clicker)
+        self.combo2.activated.connect(self.c_clicker)
+
+    def t_clicker(self, index):
+        if self.teacher_Id_Box.currentText() != 'choose a teacher':
+            self.combo2.clear()
+            self.course_Id.addItem('choose a course')
+            self.combo2.addItem(self.combo1.itemData(index))
+        elif self.teacher_Id_Box.currentText() == 'choose a teacher':
+            self.course_Id.clear()
+            self.course_Id.addItem('choose a course')
+            for c_id in db.get_courses_ids():
+                for c_value in c_id:
+                    items = []
+                    for item in self.get_t_ids(c_value):
+                        items += item
+                self.combo2.addItem(c_value, items)
+
+    def c_clicker(self, index):
+        if self.teacher_Id_Box.currentText() == 'choose a teacher':
+            if self.course_Id.currentText() != 'choose a course':
+                self.combo1.clear()
+                self.teacher_Id_Box.addItem('choose a teacher')
+                self.combo1.addItems(self.combo2.itemData(index))
+            else:
+                self.teacher_Id_Box.clear()
+                self.teacher_Id_Box.addItem('choose a teacher')
+                for t_id in db.get_teacher_ids():
+                    for t_value in t_id:
+                        self.combo1.addItem(t_value, self.get_c_ids(t_value))
+
+    def get_c_ids(self, value):
+        result = db.get_c_ids((value,))
+        return result[0]
+
+    def get_t_ids(self, value):
+        result = db.get_t_ids((value,))
+        return result
 
     def back_function(self):
         self.close()
@@ -459,32 +609,64 @@ class student_edit_window(QMainWindow):
 
     def get_data(self):
         id = (self.id.text(),)
-        phone, gender, f_name, l_name, = db.get_student_data(id)
-        c_id, t_id = db.get_teacher_and_course_id(id)
-        course_id = (c_id,)
-        teacher_id = (t_id,)
-        self.first_Name.setText(f_name)
-        self.last_Name.setText(l_name)
-        self.phone.setText(str(phone))
-        self.gender.setText(gender)
-        self.teacher_Id_Box.setCurrentText(teacher_id[0])
-        self.course_Id.setCurrentText(course_id[0])
+        result = db.get_student_data(id)
+        if result is not None:
+            phone, gender, f_name, l_name, = result
+            c_id, t_id = db.get_teacher_and_course_id(id)
+            course_id = (c_id,)
+            teacher_id = (t_id,)
+            self.first_Name.setText(f_name)
+            self.last_Name.setText(l_name)
+            self.phone.setText(str(phone))
+            self.gender.setCurrentText(gender)
+            self.teacher_Id_Box.setCurrentText(teacher_id[0])
+            self.course_Id.setCurrentText(course_id[0])
+        else:
+            self.note_msg.setText('please input a valid student ID')
 
     def update(self):
         id = self.id.text()
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
-        phone = int(self.phone.text())
-        gender = self.gender.text()
+        phone = self.phone.text()
+        gender = self.gender.currentText()
         t_id = self.teacher_Id_Box.currentText()
         c_id = self.course_Id.currentText()
-        db.update_student(id, f_name, l_name, t_id, phone, gender, c_id)
-        self.note_msg.setText('student updated successfully')
+        v_name = False
+        v_phone = False
+        v_gender = False
+        v_check_box = False
+
+        if len(f_name) == 0 or len(l_name) == 0:
+            self.note_msg.setText('please input the name fields')
+        else:
+            v_name = True
+        if len(phone) == 0:
+            self.note_msg.setText('please input the phone field')
+        else:
+            if phone.strip().isdigit():
+                self.note_msg.setText('please put a valid number')
+            else:
+                v_phone = True
+        if gender == 'choose a gender':
+            self.note_msg.setText('please choose a gender')
+        else:
+            v_gender = True
+        if t_id == 'choose a teacher' or c_id == 'choose a course':
+            self.note_msg.setText('please choose the ID fields')
+        else:
+            v_check_box = True
+        if v_check_box and v_name and v_phone and v_gender:
+            db.update_student(id, f_name, l_name, t_id, phone, gender, c_id)
+            self.note_msg.setText('student updated successfully')
 
     def delete(self):
-        id = (self.id.text(),)
-        db.delete_student(id)
-        self.note_msg.setText('student deleted successfully')
+        if len(self.id.text()) == 0:
+            self.note_msg.setText('please input a valid student ID')
+        else:
+            id = (self.id.text(),)
+            db.delete_student(id)
+            self.note_msg.setText('student deleted successfully')
 
 
 class fees_window(QMainWindow):
@@ -537,6 +719,12 @@ class course_add_window(QMainWindow):
         v_name = False
         v_id = False
         v_price = False
+        v_duplication = False
+
+        if db.get_course_data((id,)) is None:
+            v_duplication = True
+        else:
+            self.note_msg.setText('ID already exsist')
         if len(name) == 0:
             self.note_msg.setText('input the name field please')
         else:
@@ -552,7 +740,7 @@ class course_add_window(QMainWindow):
                 v_price = True
             else:
                 self.note_msg.setText('wrong value type in price field')
-        if v_name and v_id and v_price:
+        if v_name and v_id and v_price and v_duplication:
             db.add_course(name, id, price)
             self.note_msg.setText('course added successfully')
 
@@ -588,10 +776,20 @@ class course_edit_window(QMainWindow):
         self.close()
 
     def edit_data(self):
+
         id = (self.course_Id_Box.currentText(),)
-        name, price = db.get_course_data(id)
-        self.name.setText(name)
-        self.price.setText(str(price))
+        result = db.get_course_data(id)
+        if result is not None:
+            name, price = result
+            self.name.setText(name)
+            self.price.setText(str(price))
+            self.course_Id_Box.clear()
+            self.course_Id_Box.addItem('choose a course')
+            for id in db.get_courses_ids():
+                for value in id:
+                    self.course_Id_Box.addItem(value)
+        else:
+            self.note_msg.setText('choose a valid ID')
 
     def update(self):
         name = self.name.text()
@@ -621,15 +819,25 @@ class course_edit_window(QMainWindow):
         if v_name and v_price and v_id:
             db.update_course(id, new_id, name, price)
             self.note_msg.setText('course updated successfully')
-        self.course_Id_Box.clear()
-        for id in db.get_courses_ids():
-            for value in id:
-                self.course_Id_Box.addItem(value)
+            self.course_Id_Box.clear()
+            self.course_Id_Box.addItem('choose a course')
+            for id in db.get_courses_ids():
+                for value in id:
+                    self.course_Id_Box.addItem(value)
 
     def delete(self):
-        id = (self.course_Id_Box.currentText(),)
-        db.delete_course(id)
-        self.note_msg.setText('course deleted successfully')
+        if self.course_Id_Box.currentText() != 'choose a course':
+            id = (self.course_Id_Box.currentText(),)
+            db.delete_course(id)
+            self.note_msg.setText('course deleted successfully')
+            self.course_Id_Box.clear()
+            self.course_Id_Box.addItem('choose a course')
+            for id in db.get_courses_ids():
+                for value in id:
+                    self.course_Id_Box.addItem(value)
+
+        else:
+            self.note_msg.setText('choose a valid ID')
 
 
 class course_details_window(QMainWindow):

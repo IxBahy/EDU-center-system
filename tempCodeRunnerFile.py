@@ -1,2 +1,1 @@
-
-from S_screen import SplashScreen
+add_assistant('aaEN1', 'ahmed', 'ali', 2000, 'male')

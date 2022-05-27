@@ -316,31 +316,6 @@ padding-bottom:7px;</string>
       <string>salary</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="gender">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>270</y>
-       <width>220</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 0, 0,0);
-border:none;
-border-bottom:2px solid rgba(105,118,132,255);
-color:rgba(255, 255, 255,230);
-padding-bottom:7px;</string>
-     </property>
-     <property name="placeholderText">
-      <string>gender</string>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="last_Name">
      <property name="geometry">
       <rect>
@@ -434,6 +409,38 @@ padding-bottom:7px;</string>
       </property>
      </item>
     </widget>
+    <widget class="QComboBox" name="gender">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>270</y>
+       <width>221</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255, 255, 255,230);
+padding-bottom:7px;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>choose a gender</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Male</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Female</string>
+      </property>
+     </item>
+    </widget>
    </widget>
   </widget>
  </widget>
@@ -441,7 +448,6 @@ padding-bottom:7px;</string>
   <tabstop>first_Name</tabstop>
   <tabstop>last_Name</tabstop>
   <tabstop>salary</tabstop>
-  <tabstop>gender</tabstop>
   <tabstop>teacher_Id_Box</tabstop>
   <tabstop>add_Button</tabstop>
   <tabstop>delete_Button</tabstop>

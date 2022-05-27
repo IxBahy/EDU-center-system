@@ -319,7 +319,7 @@ color:rgb(170, 170, 170);
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>310</y>
+       <y>260</y>
        <width>220</width>
        <height>41</height>
       </rect>
@@ -394,7 +394,7 @@ padding-bottom:7px;</string>
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>260</y>
+       <y>360</y>
        <width>221</width>
        <height>41</height>
       </rect>
@@ -440,31 +440,6 @@ padding-bottom:7px;</string>
       </property>
      </item>
     </widget>
-    <widget class="QLineEdit" name="gender">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>360</y>
-       <width>220</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 0, 0,0);
-border:none;
-border-bottom:2px solid rgba(105,118,132,255);
-color:rgba(255, 255, 255,230);
-padding-bottom:7px;</string>
-     </property>
-     <property name="placeholderText">
-      <string>gender</string>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="id">
      <property name="geometry">
       <rect>
@@ -507,6 +482,38 @@ color: rgb(143,0,0);</string>
      <property name="text">
       <string/>
      </property>
+    </widget>
+    <widget class="QComboBox" name="gender">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>310</y>
+       <width>221</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255, 255, 255,230);
+padding-bottom:7px;</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>choose a gender</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Male</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Female</string>
+      </property>
+     </item>
     </widget>
    </widget>
   </widget>

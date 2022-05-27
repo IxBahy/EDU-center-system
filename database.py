@@ -146,3 +146,24 @@ def update_student(id, f_name, l_name, t_id, phone, gender, c_id):
 def delete_student(id):
     my_cursor.execute('delete from students where id=%s', (id))
     db.commit()
+
+
+def assistant_check(f_name, l_name):
+    my_cursor.execute(
+        'select * from assistants where first_name=%s and last_name=%s ;', (f_name, l_name))
+    result = my_cursor.fetchone()
+    return result
+
+
+def get_c_ids(t_id):
+    my_cursor.execute(
+        'select id from courses where name=(select course from teachers where id = %s)', (t_id))
+    result = my_cursor.fetchone()
+    return result
+
+
+def get_t_ids(c_id):
+    my_cursor.execute(
+        'select id from teachers where course=(select name from courses where id = %s)', (c_id))
+    result = my_cursor.fetchall()
+    return result
