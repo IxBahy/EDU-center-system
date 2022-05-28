@@ -473,19 +473,30 @@ class student_add_window(QMainWindow):
             self.students_List.addItem(result[0])
 
     def t_clicker(self, index):
-        if self.teacher_Id_Box.currentText() != 'choose a teacher':
-            self.combo2.clear()
-            self.course_Id.addItem('choose a course')
-            self.combo2.addItem(self.combo1.itemData(index))
-        elif self.teacher_Id_Box.currentText() == 'choose a teacher':
-            self.course_Id.clear()
-            self.course_Id.addItem('choose a course')
-            for c_id in db.get_courses_ids():
-                for c_value in c_id:
-                    items = []
-                    for item in self.get_t_ids(c_value):
-                        items += item
-                self.combo2.addItem(c_value, items)
+        if self.course_Id.currentText() == 'choose a course':
+            if self.teacher_Id_Box.currentText() != 'choose a teacher':
+                self.combo2.clear()
+                self.course_Id.addItem('choose a course')
+                self.combo2.addItem(self.combo1.itemData(index))
+            elif self.teacher_Id_Box.currentText() == 'choose a teacher':
+                self.course_Id.clear()
+                self.course_Id.addItem('choose a course')
+                for c_id in db.get_courses_ids():
+                    for c_value in c_id:
+                        items = []
+                        for item in self.get_t_ids(c_value):
+                            items += item
+                    self.combo2.addItem(c_value, items)
+                self.teacher_Id_Box.clear()
+                self.teacher_Id_Box.addItem('choose a teacher')
+                for t_id in db.get_teacher_ids():
+                    for t_value in t_id:
+                        self.combo1.addItem(t_value, self.get_c_ids(t_value))
+        else:
+            if self.teacher_Id_Box.currentText() == 'choose a teacher':
+                pass
+            elif self.teacher_Id_Box.currentText() != 'choose a teacher':
+                pass
 
     def c_clicker(self, index):
         if self.teacher_Id_Box.currentText() == 'choose a teacher':
@@ -493,12 +504,17 @@ class student_add_window(QMainWindow):
                 self.combo1.clear()
                 self.teacher_Id_Box.addItem('choose a teacher')
                 self.combo1.addItems(self.combo2.itemData(index))
-            else:
+            elif self.course_Id.currentText() == 'choose a course':
                 self.teacher_Id_Box.clear()
                 self.teacher_Id_Box.addItem('choose a teacher')
                 for t_id in db.get_teacher_ids():
                     for t_value in t_id:
                         self.combo1.addItem(t_value, self.get_c_ids(t_value))
+        else:
+            if self.course_Id.currentText() == 'choose a course':
+                pass
+            elif self.course_Id.currentText() != 'choose a course':
+                pass
 
     def back_function(self):
         self.close()

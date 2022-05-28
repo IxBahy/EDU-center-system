@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>446</width>
+    <height>541</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>30</y>
+      <width>370</width>
+      <height>480</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#pushButton{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(20, 47, 78, 219), stop:1 rgba(85, 98, 112, 226));
+    color:rgba(255,255,255,210);
+	border-radius:5px;
+}
+QPushButton#pushButton:hover{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(40, 47, 98, 219), stop:1 rgba(105, 118, 132, 226));
+ 
+}
+QPushButton#pushButton:pressed{
+	padding-left:5px;
+	padding-top:5px;
+	background-color:rgba(105,118,132,200)
+}
+QPushButton#pushButton_2{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(20, 47, 78, 219), stop:1 rgba(85, 98, 112, 226));
+    color:rgba(255,255,255,210);
+	border-radius:5px;
+}
+QPushButton#pushButton_2:hover{
+	background-color: qlineargradient(spread:pad, x1:0, y1:0.505682, x2:1, y2:0.477, stop:0 rgba(40, 47, 98, 219), stop:1 rgba(105, 118, 132, 226));
+ 
+}
+QPushButton#pushButton_2:pressed{
+	padding-left:5px;
+	padding-top:5px;
+	background-color:rgba(105,118,132,200)
+}</string>
+    </property>
+    <widget class="QLabel" name="Frame">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>300</width>
+       <height>420</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/newPrefix/login.jpeg);
+border-radius:20px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Image">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>300</width>
+       <height>420</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:0.715909, stop:0 rgba(0, 0, 0, 9), stop:0.375 rgba(0, 0, 0, 50), stop:0.835227 rgba(0, 0, 0, 75));
+border-image: url(:/newPrefix/login.jpeg);
+border-radius:20px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="DarkShade">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>300</width>
+       <height>420</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgba(0,0,0,100);
+border-radius:15px;
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Program_name">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>60</y>
+       <width>201</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>20</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+       <underline>false</underline>
+       <strikeout>false</strikeout>
+       <stylestrategy>NoAntialias</stylestrategy>
+       <kerning>true</kerning>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:
+rgba(204, 204, 204,220)</string>
+     </property>
+     <property name="text">
+      <string>EDU Center
+   Manager</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="UserName">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>160</y>
+       <width>220</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255, 255, 255,230);
+padding-bottom:7px;</string>
+     </property>
+     <property name="placeholderText">
+      <string>User Name</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="Passwd">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>230</y>
+       <width>221</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0, 0, 0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255, 255, 255,230);
+padding-bottom:7px;</string>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Password</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="LoginButton">
+     <property name="geometry">
+      <rect>
+       <x>65</x>
+       <y>320</y>
+       <width>200</width>
+       <height>40</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#LoginButton{
+	background-color: qlineargradient(spread:pad, x1:0.512, y1:0.512, x2:1, y2:1, stop:0.0447761 rgba(8, 54, 67, 255), stop:1 rgba(18, 118, 145, 255));
+	border-radius:5px;
+color:rgb(200,200,200);
+}
+QPushButton#LoginButton:hover{	
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+
+}
+QPushButton#LoginButton:pressed{
+	padding-left:5px;
+padding-top:5px;
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(4, 29, 36, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>L o g   I n</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="QText">
+     <property name="geometry">
+      <rect>
+       <x>50</x>
+       <y>390</y>
+       <width>151</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color:rgba(255, 255,255,140);</string>
+     </property>
+     <property name="text">
+      <string>no account? Sign up here</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Sign_upButton">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>390</y>
+       <width>60</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>100</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#Sign_upButton{
+	
+background-color: qlineargradient(spread:pad, x1:0.512, y1:0.512, x2:1, y2:1, stop:0.0447761 rgba(8, 54, 67, 255), stop:1 rgba(18, 118, 145, 255));
+	border-radius:5px;
+color:rgb(200,200,200);
+}
+QPushButton#Sign_upButton:hover{	
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+
+}
+QPushButton#Sign_upButton:pressed{
+	padding-left:5px;
+padding-top:5px;
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(4, 29, 36, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Sign up</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Failure_msg">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>290</y>
+       <width>261</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
+color:rgb(143, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resourse/oop_res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

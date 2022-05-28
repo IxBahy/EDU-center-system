@@ -1,7 +1,7 @@
 import oop_res
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
-from PyQt5.QtWidgets import QDialog, QApplication, QWidget
+from PyQt5.QtWidgets import QDialog, QApplication, QWidget, QMainWindow
 import sys
 import database as db
 from database import my_cursor
@@ -12,10 +12,10 @@ from S_screen import SplashScreen
 # form class
 
 
-class Form(QDialog):
+class Form((QMainWindow)):
     def __init__(self):
         super(Form, self).__init__()
-        loadUi('UIs\loginForm.ui', self)
+        loadUi('UIs\login_window.ui', self)
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.LoginButton.clicked.connect(self.login_function)
