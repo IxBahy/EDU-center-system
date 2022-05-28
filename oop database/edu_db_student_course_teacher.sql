@@ -27,11 +27,11 @@ CREATE TABLE `student_course_teacher` (
   `c_id` varchar(50) NOT NULL,
   `t_id` varchar(50) NOT NULL,
   PRIMARY KEY (`s_id`,`c_id`),
-  KEY `2_idx` (`c_id`),
-  KEY `student_course_teacher_ibfk_4_idx` (`t_id`),
-  CONSTRAINT `course_FK` FOREIGN KEY (`c_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  CONSTRAINT `student_course_teacher_ibfk_4` FOREIGN KEY (`t_id`) REFERENCES `teachers` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `students_FK` FOREIGN KEY (`s_id`) REFERENCES `students` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  UNIQUE KEY `s_id_UNIQUE` (`s_id`),
+  KEY `t_index` (`t_id`),
+  KEY `courses_fk_idx` (`c_id`),
+  CONSTRAINT `courses_fk` FOREIGN KEY (`c_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `teachers_fk` FOREIGN KEY (`t_id`) REFERENCES `teachers` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-25 22:07:57
+-- Dump completed on 2022-05-28 22:51:05

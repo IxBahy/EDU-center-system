@@ -234,7 +234,7 @@ color:rgb(170, 170, 170);
       <string>Add student</string>
      </property>
     </widget>
-    <widget class="QListWidget" name="teachers_List">
+    <widget class="QListWidget" name="students_List">
      <property name="geometry">
       <rect>
        <x>350</x>
@@ -244,7 +244,8 @@ color:rgb(170, 170, 170);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 255, 255);</string>
+      <string notr="true">background-color: rgba(255, 255, 255,230);
+font: 57 12pt &quot;Dubai Medium&quot;;</string>
      </property>
     </widget>
     <widget class="QLabel" name="list_Name">
@@ -354,27 +355,6 @@ padding-bottom:7px;</string>
       </property>
      </item>
     </widget>
-    <widget class="QLabel" name="DarkShade_2">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>100</y>
-       <width>370</width>
-       <height>440</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgba(0,0,0,20);
-border-radius:15px;
-</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLabel" name="note_msg">
      <property name="geometry">
       <rect>
@@ -437,7 +417,7 @@ padding-bottom:7px;</string>
   <tabstop>teacher_Id_Box</tabstop>
   <tabstop>course_Id</tabstop>
   <tabstop>add_Button</tabstop>
-  <tabstop>teachers_List</tabstop>
+  <tabstop>students_List</tabstop>
   <tabstop>BackButton</tabstop>
   <tabstop>exit_button</tabstop>
  </tabstops>

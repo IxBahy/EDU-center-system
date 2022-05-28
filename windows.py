@@ -74,11 +74,6 @@ class student_main_window(QMainWindow):
         self.main = student_edit_window()
         self.main.show()
 
-    # def open_fees_window(self):
-    #     self.close()
-    #     self.main = fees_window()
-    #     self.main.show()
-
 
 class teacher_main_window(QMainWindow):
     def __init__(self):
@@ -269,12 +264,8 @@ class teacher_edit_window(QMainWindow):
             self.last_Name.setText(l_name)
             c_name = (course,)
             c_id = db.get_course_id_by_name(c_name)
-            self.course_Id.setCurrentText(c_id[0])
-            self.teacher_Id_Box.clear()
-            self.teacher_Id_Box.addItem('choose a teacher')
-            for id in db.get_teacher_ids():
-                for value in id:
-                    self.teacher_Id_Box.addItem(value)
+            if c_id is not None:
+                self.course_Id.setCurrentText(c_id[0])
         else:
             self.note_msg.setText('choose a teacher ID')
 
@@ -474,6 +465,12 @@ class student_add_window(QMainWindow):
 
         self.combo1.activated.connect(self.t_clicker)
         self.combo2.activated.connect(self.c_clicker)
+        self.fill_list()
+
+    def fill_list(self):
+        self.students_List.clear()
+        for result in db.student_info():
+            self.students_List.addItem(result[0])
 
     def t_clicker(self, index):
         if self.teacher_Id_Box.currentText() != 'choose a teacher':
@@ -522,6 +519,15 @@ class student_add_window(QMainWindow):
         v_phone = False
         v_gender = False
         v_check_box = False
+        v_duplication = False
+        checker = db.student_check(f_name, l_name, phone, gender, c_id)
+        if checker is None:
+            v_duplication = True
+        elif checker[0] == c_id and checker[1] == t_id:
+            self.note_msg.setText('student already exsist')
+        else:
+            v_duplication = True
+
         if len(f_name) == 0 or len(l_name) == 0:
             self.note_msg.setText('please input the student field')
         else:
@@ -542,17 +548,24 @@ class student_add_window(QMainWindow):
             self.note_msg.setText('please choose the IDs')
         else:
             v_check_box = True
-        if v_check_box and v_name and v_phone and v_gender:
+        if v_check_box and v_name and v_phone and v_gender and v_duplication:
             db.add_student(f_name, l_name, phone, gender, c_id, t_id)
             self.note_msg.setText('student added successfully')
+            self.fill_list()
 
     def get_c_ids(self, value):
         result = db.get_c_ids((value,))
-        return result[0]
+        if result is not None:
+            return result[0]
+        else:
+            pass
 
     def get_t_ids(self, value):
         result = db.get_t_ids((value,))
-        return result
+        if result is not None:
+            return result
+        else:
+            pass
 
 
 class student_edit_window(QMainWindow):
@@ -575,9 +588,10 @@ class student_edit_window(QMainWindow):
         for c_id in db.get_courses_ids():
             for c_value in c_id:
                 items = []
-                for item in self.get_t_ids(c_value):
-                    items += item
-                self.combo2.addItem(c_value, items)
+                if items:
+                    for item in self.get_t_ids(c_value):
+                        items += item
+                    self.combo2.addItem(c_value, items)
 
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
@@ -616,11 +630,21 @@ class student_edit_window(QMainWindow):
 
     def get_c_ids(self, value):
         result = db.get_c_ids((value,))
-        return result[0]
+        if result is not None:
+            if result:
+                return result[0]
+        else:
+            pass
 
     def get_t_ids(self, value):
         result = db.get_t_ids((value,))
-        return result
+        if result is not None:
+            if result:
+                return result[0]
+            else:
+                pass
+        else:
+            pass
 
     def back_function(self):
         self.close()

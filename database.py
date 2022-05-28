@@ -260,3 +260,21 @@ def course_info():
     my_cursor.execute(sql)
     result = my_cursor.fetchall()
     return result
+
+
+def student_info():
+    sql = ('select concat(students.id,"- Name: ",students.first_name," ",students.last_name,". Phone number: ",students.phone,", teacher ID: ",\
+        (select student_course_teacher.t_id where s_id=students.id)," Course ID: ",(select student_course_teacher.c_id where s_id=students.id ))\
+             from students inner join student_course_teacher on students.id=student_course_teacher.s_id ORDER BY students.id ;')
+    my_cursor.execute(sql)
+    result = my_cursor.fetchall()
+    return result
+
+
+def student_check(f_name, l_name, phone, gender, c_id):
+    sql = ('select c_id,t_id from student_course_teacher where s_id= \
+        (select id from students where phone=%s and gender=%s and first_name=%s and last_name=%s and course= (select name from courses where id=%s) );')
+    my_cursor.execute(
+        sql, (phone, gender, f_name, l_name, c_id))
+    result = my_cursor.fetchone()
+    return result
