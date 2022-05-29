@@ -8,6 +8,9 @@ from database import my_cursor
 import re
 
 
+# welcome window for the application
+
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -21,6 +24,7 @@ class MainWindow(QMainWindow):
         self.TeacherButton.clicked.connect(self.open_teacher_window)
         self.StudentButton.clicked.connect(self.open_student_window)
         self.CoursesButton.clicked.connect(self.open_course_window)
+    # a button for each category  in the app
 
     def open_teacher_window(self):
         self.close()
@@ -58,16 +62,19 @@ class student_main_window(QMainWindow):
 
     def close_function(self):
         self.close()
+    # return to main window (welcome window)
 
     def back_function(self):
         self.close()
         self.main = MainWindow()
         self.main.show()
+    # open the student add window
 
     def open_add_window(self):
         self.close()
         self.main = student_add_window()
         self.main.show()
+    # open the student edit window
 
     def open_edit_window(self):
         self.close()
@@ -93,26 +100,31 @@ class teacher_main_window(QMainWindow):
 
     def close_function(self):
         self.close()
+    # back to main window
 
     def back_function(self):
         self.close()
         self.main = MainWindow()
         self.main.show()
+    # open teacher add window
 
     def open_add_window(self):
         self.close()
         self.main = teacher_add_window()
         self.main.show()
+    # open the teacher edit window
 
     def open_edit_window(self):
         self.close()
         self.main = teacher_edit_window()
         self.main.show()
+    # open the add assistant window
 
     def open_assistant_window(self):
         self.close()
         self.main = assistant_add_window()
         self.main.show()
+    # open teacher stats window
 
     def open_stats_window(self):
         self.close()
@@ -137,21 +149,25 @@ class course_main_window(QMainWindow):
 
     def close_function(self):
         self.close()
+    # back to main window
 
     def back_function(self):
         self.close()
         self.main = MainWindow()
         self.main.show()
+    # open the course add window
 
     def open_add_window(self):
         self.close()
         self.main = course_add_window()
         self.main.show()
+    # open the course edit window
 
     def open_edit_window(self):
         self.close()
         self.main = course_edit_window()
         self.main.show()
+    # open course stats window
 
     def open_details_window(self):
         self.close()
@@ -171,18 +187,22 @@ class teacher_add_window(QMainWindow):
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
         self.add_Button.clicked.connect(self.add)
+        # add all the IDs in the courses table to the combo box
         for id in db.get_courses_ids():
             for value in id:
                 self.course_Id.addItem(value)
         self.note_msg.setText('')
+        # call the load list function
         self.load_list()
 
     def load_list(self):
+        # clear the list first so if called will have no duplicates
         self.teachers_List.clear()
         for result in db.teacher_info():
             self.teachers_List.addItem(result[0])
 
     def add(self):
+        # add a new teacher (read data in text lines and validating it)
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
         t_id = self.id.text()
@@ -193,6 +213,7 @@ class teacher_add_window(QMainWindow):
         v_duplication = False
 
         if db.get_teacher_data((t_id,)) is None:
+            # check if ID already exsist
             v_duplication = True
         else:
             self.note_msg.setText('ID already exsist')
@@ -209,11 +230,14 @@ class teacher_add_window(QMainWindow):
         else:
             v_id = True
         if v_name and v_course and v_id and v_duplication:
+            # call the add teacher stored procedure
             db.add_teacher(f_name, l_name, t_id, c_id)
             self.note_msg.setText('teacher added successfully')
+            # update the list
             self.load_list()
 
     def back_function(self):
+        # back to teachers main window
         self.close()
         self.main = teacher_main_window()
         self.main.show()
@@ -236,16 +260,20 @@ class teacher_edit_window(QMainWindow):
         self.edit_Button.clicked.connect(self.get_teacher_data)
         self.update_Button.clicked.connect(self.update)
         self.delete_Button.clicked.connect(self.delete)
+        # add all teacher IDs to the combo box
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
                 self.teacher_Id_Box.addItem(t_value)
+        # reset values
         self.note_msg.setText('')
         self.first_Name.setText('')
         self.last_Name.setText('')
         self.course_Id.setCurrentText('choose a course')
+        # add all the course IDs to the combo box
         for id in db.get_courses_ids():
             for value in id:
                 self.course_Id.addItem(value)
+    # return to the teacher main window
 
     def back_function(self):
         self.close()
@@ -257,19 +285,24 @@ class teacher_edit_window(QMainWindow):
 
     def get_teacher_data(self):
         id = (self.teacher_Id_Box.currentText(),)
+        # call a queary that return the data we want to show about the teacher
         result = db.get_teacher_data(id)
         if result is not None:
+            # if teacher exsist(for sure it will haha)
+            # unpack the result
             f_name, l_name, course = result
             self.first_Name.setText(f_name)
             self.last_Name.setText(l_name)
             c_name = (course,)
             c_id = db.get_course_id_by_name(c_name)
             if c_id is not None:
+                # extra security check (:p not needed as all values are selected from combo boxes but safty is better)
                 self.course_Id.setCurrentText(c_id[0])
         else:
             self.note_msg.setText('choose a teacher ID')
 
     def update(self):
+        # update teacher values by the new inserted ones
         t_id = self.teacher_Id_Box.currentText()
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
@@ -282,6 +315,7 @@ class teacher_edit_window(QMainWindow):
         if v_name:
             db.update_teacher(t_id, f_name, l_name, c_id)
             self.note_msg.setText('teacher updated successfully')
+            # update the combo box values
             self.teacher_Id_Box.clear()
             self.teacher_Id_Box.addItem('choose a teacher')
             for id in db.get_teacher_ids():
@@ -289,10 +323,12 @@ class teacher_edit_window(QMainWindow):
                     self.teacher_Id_Box.addItem(value)
 
     def delete(self):
+        # delete the selected ID from the combo box
         t_id = (self.teacher_Id_Box.currentText(),)
         if self.teacher_Id_Box.currentText() != 'choose a teacher':
             db.delete_teacher(t_id)
             self.note_msg.setText('teacher deleted successfully')
+            # update the combo box values
             self.teacher_Id_Box.clear()
             self.teacher_Id_Box.addItem('choose a teacher')
             for id in db.get_teacher_ids():
@@ -315,15 +351,18 @@ class assistant_add_window(QMainWindow):
         self.BackButton.clicked.connect(self.back_function)
         self.add_Button.clicked.connect(self.add)
         self.delete_Button.clicked.connect(self.delete)
+        # add all the assistants name to the combo box
         for names in db.get_assistant_name():
             full_name = ''
             for value in names:
                 full_name += value+' '
             self.assistant_box.addItem(full_name)
+        # add all the teacher IDs to the combo box
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
                 self.teacher_Id_Box.addItem(t_value)
         self.note_msg.setText('')
+    # return to the teachers main window
 
     def back_function(self):
         self.close()
@@ -352,6 +391,7 @@ class assistant_add_window(QMainWindow):
                 self.assistant_box.addItem(full_name)
 
     def add(self):
+        # adding a new assistant
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
         salary = self.salary.text()
@@ -392,6 +432,7 @@ class assistant_add_window(QMainWindow):
         if v_name and v_duplication and v_t_id and v_salary and v_gender:
             db.add_assistant(t_id, f_name, l_name, salary, gender)
             self.note_msg.setText('assistant added successfully')
+        # update the combo box
         self.assistant_box.clear()
         self.assistant_box.addItem("choose an assistant")
         for names in db.get_assistant_name():
@@ -413,11 +454,13 @@ class teacher_stats_window(QMainWindow):
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
         self.show_Button.clicked.connect(self.show_function)
+        # add the Ids to the combo box
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
                 self.teacher_Id_Box.addItem(t_value)
 
     def show_function(self):
+        # show teacher stats based by the ID using sql queries
         id = (self.teacher_Id_Box.currentText(),)
         assistant_number = db.get_assistant_count(id)
         self.assistants_Count.setText(str(assistant_number))
@@ -450,36 +493,44 @@ class student_add_window(QMainWindow):
         self.BackButton.clicked.connect(self.back_function)
         self.add_Button.clicked.connect(self.add)
         self.note_msg.setText('')
+       # making the dependant combo boxes
         self.combo1 = self.findChild(QComboBox, 'teacher_Id_Box')
         self.combo2 = self.findChild(QComboBox, 'course_Id')
+        # adding all values with associated values to the course combo box "teachers can have one course but a course can have many teachers"
         for c_id in db.get_courses_ids():
             for c_value in c_id:
                 items = []
                 for item in self.get_t_ids(c_value):
                     items += item
                 self.combo2.addItem(c_value, items)
-
+        # adding all values with associated values to the teacher combo box
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
                 self.combo1.addItem(t_value, self.get_c_ids(t_value))
 
         self.combo1.activated.connect(self.t_clicker)
         self.combo2.activated.connect(self.c_clicker)
-
+        # call the function to fill the students list
         self.fill_list()
 
     def fill_list(self):
+        # same way as othe fill_list functions
         self.students_List.clear()
         for result in db.student_info():
             self.students_List.addItem(result[0])
 
     def t_clicker(self, index):
+        # first base conditons: if the course value is none:
         if self.course_Id.currentText() == 'choose a course':
+            # 1:if the value inputed in theacher is not none and course is none:
             if self.teacher_Id_Box.currentText() != 'choose a teacher':
+                # we clear the courses and fill only the associated values of the teacher ID we inputed
                 self.combo2.clear()
                 self.combo2.addItem('choose a course', 'choose a teacher')
                 self.combo2.addItem(self.combo1.itemData(index))
+            # 2: if we click on none and course is none:
             elif self.teacher_Id_Box.currentText() == 'choose a teacher':
+                # we clear both and add all items to both the combo boxes
                 self.combo2.clear()
                 self.combo2.addItem('choose a course', 'choose a teacher')
                 for c_id in db.get_courses_ids():
@@ -489,42 +540,59 @@ class student_add_window(QMainWindow):
                             items += item
                     self.combo2.addItem(c_value, items)
 
+        # base 2: if course is not none:
         else:
+            # 1: if we click on none and course is not none:
             if self.teacher_Id_Box.currentText() == 'choose a teacher':
+                # we clear the course box and add all items to it and make the current text the same as the one before the clear
+                # beacuse i dont want to reset both u cant just make it a pass or it will input some empty items to the text box
                 value = self.combo2.currentText()
                 self.combo2.clear()
                 self.combo2.addItem('choose a course', 'choose a teacher')
+                # we add all the courses beacuse none is the input from teachers
                 for c_id in db.get_courses_ids():
                     for c_value in c_id:
                         items = []
                         for item in self.get_t_ids(c_value):
                             items += item
                         self.combo2.addItem(c_value, items)
+                # clear the teachers box
                 self.combo1.clear()
                 self.combo1.addItem('choose a teacher', 'choose a course')
+                # add all the values of teachers
                 for t_id in db.get_teacher_ids():
                     for t_value in t_id:
                         self.combo1.addItem(t_value, self.get_c_ids(t_value))
                 self.combo2.setCurrentText(value)
+                # call the course function so the original state will remain the same
                 self.c_clicker(self.combo2.currentIndex())
+                # all this equal that the none input do nothing if the course box is not none
+            # 2:if we click on a value and cours is not none
             elif self.teacher_Id_Box.currentText() != 'choose a teacher':
+                # the following code will cause the value in the course box will be only the course that the IDs in the teacher box is avilabe for
+                #  so now both the teacher values and couse will math and no errors will happen
                 box1_value = self.combo1.currentText()
+                # getting all the IDs in the teacher box so we can add the agine after the clear
                 values = [self.combo1.itemText(i)
                           for i in range(self.combo1.count())]
                 box2_value = self.combo2.currentText()
                 self.combo1.clear()
                 self.combo1.addItem('choose a teacher', 'choose a course')
+                # add the same values as before so the teachers box will remain the same
                 for value in values:
                     if value != 'choose a teacher':
                         self.combo1.addItem(value, self.get_c_ids(value))
                 self.combo1.setCurrentText(box1_value)
+                # we clear the courses box
                 self.combo2.clear()
                 self.combo2.addItem('choose a course', 'choose a teacher')
                 self.combo2.setCurrentText('choose a course')
+                # add the course associated with the index of the item selected in the teachers box (all will have the same course ID but you must do this so the boxes will be dependant )
                 self.t_clicker(self.combo1.currentIndex())
                 self.combo2.setCurrentText(box2_value)
 
     def c_clicker(self, index):
+        # same process as the t_clicker function
         if self.teacher_Id_Box.currentText() == 'choose a teacher':
             if self.course_Id.currentText() != 'choose a course':
                 self.combo1.clear()
@@ -554,6 +622,7 @@ class student_add_window(QMainWindow):
                         self.combo2.addItem(c_value, items)
                 self.combo1.setCurrentText(value)
                 self.t_clicker(self.combo1.currentIndex())
+
             elif self.course_Id.currentText() != 'choose a course':
                 items = []
                 box1_value = self.combo1.currentText()
@@ -579,6 +648,7 @@ class student_add_window(QMainWindow):
         self.close()
 
     def add(self):
+        # adding a student "id is auto incremented "
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
         phone = self.phone.text()
@@ -621,9 +691,11 @@ class student_add_window(QMainWindow):
         if v_check_box and v_name and v_phone and v_gender and v_duplication:
             db.add_student(f_name, l_name, phone, gender, c_id, t_id)
             self.note_msg.setText('student added successfully')
+            # update the student list
             self.fill_list()
 
     def get_c_ids(self, value):
+        # getting the course associated with the teacher ID passed in the parameter
         result = db.get_c_ids((value,))
         if result is not None:
             return result[0]
@@ -631,6 +703,7 @@ class student_add_window(QMainWindow):
             pass
 
     def get_t_ids(self, value):
+        # getting the teachers associated with the course ID passed in the parameter
         result = db.get_t_ids((value,))
         if result is not None:
             return result
@@ -652,7 +725,7 @@ class student_edit_window(QMainWindow):
         self.edit_Button.clicked.connect(self.get_data)
         self.delete_Button.clicked.connect(self.delete)
         self.update_Button.clicked.connect(self.update)
-
+        # process same as above
         self.combo1 = self.findChild(QComboBox, 'teacher_Id_Box')
         self.combo2 = self.findChild(QComboBox, 'course_Id')
         for c_id in db.get_courses_ids():
@@ -789,6 +862,7 @@ class student_edit_window(QMainWindow):
         self.close()
 
     def get_data(self):
+        # get the student data by its ID
         id = (self.id.text(),)
         result = db.get_student_data(id)
         if result is not None:
@@ -806,6 +880,7 @@ class student_edit_window(QMainWindow):
             self.note_msg.setText('please input a valid student ID')
 
     def update(self):
+        # update the student with the new data
         id = self.id.text()
         f_name = self.first_Name.text()
         l_name = self.last_Name.text()
@@ -842,6 +917,7 @@ class student_edit_window(QMainWindow):
             self.note_msg.setText('student updated successfully')
 
     def delete(self):
+        # delete student by ID
         if len(self.id.text()) == 0:
             self.note_msg.setText('please input a valid student ID')
         else:
@@ -874,6 +950,7 @@ class fees_window(QMainWindow):
 
 
 class course_add_window(QMainWindow):
+    # process is the same as any add class
     def __init__(self):
         super(course_add_window, self).__init__()
         self.setupUi()
@@ -936,6 +1013,7 @@ class course_add_window(QMainWindow):
 
 
 class course_edit_window(QMainWindow):
+    # process is the same as any edit window
     def __init__(self):
         super(course_edit_window, self).__init__()
         self.setupUi()
@@ -1031,6 +1109,7 @@ class course_edit_window(QMainWindow):
 
 
 class course_details_window(QMainWindow):
+    # process is the same as the teacher stats window
     def __init__(self):
         super(course_details_window, self).__init__()
         self.setupUi()

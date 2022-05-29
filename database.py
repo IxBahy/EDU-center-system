@@ -1,5 +1,5 @@
 import mysql.connector
-
+# all the quearies used in the application are defined here
 db = mysql.connector.connect(
     host='localhost',
     user='root',
