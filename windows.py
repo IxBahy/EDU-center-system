@@ -506,9 +506,23 @@ class student_add_window(QMainWindow):
                     for t_value in t_id:
                         self.combo1.addItem(t_value, self.get_c_ids(t_value))
                 self.combo2.setCurrentText(value)
-
+                self.c_clicker(self.combo2.currentIndex())
             elif self.teacher_Id_Box.currentText() != 'choose a teacher':
-                pass
+                box1_value = self.combo1.currentText()
+                values = [self.combo1.itemText(i)
+                          for i in range(self.combo1.count())]
+                box2_value = self.combo2.currentText()
+                self.combo1.clear()
+                self.combo1.addItem('choose a teacher', 'choose a course')
+                for value in values:
+                    if value != 'choose a teacher':
+                        self.combo1.addItem(value, self.get_c_ids(value))
+                self.combo1.setCurrentText(box1_value)
+                self.combo2.clear()
+                self.combo2.addItem('choose a course', 'choose a teacher')
+                self.combo2.setCurrentText('choose a course')
+                self.t_clicker(self.combo1.currentIndex())
+                self.combo2.setCurrentText(box2_value)
 
     def c_clicker(self, index):
         if self.teacher_Id_Box.currentText() == 'choose a teacher':
@@ -539,8 +553,22 @@ class student_add_window(QMainWindow):
                             items += item
                         self.combo2.addItem(c_value, items)
                 self.combo1.setCurrentText(value)
+                self.t_clicker(self.combo1.currentIndex())
             elif self.course_Id.currentText() != 'choose a course':
-                pass
+                items = []
+                box1_value = self.combo1.currentText()
+                box2_value = self.combo2.currentText()
+                self.combo2.clear()
+                self.combo2.addItem('choose a course', 'choose a teacher')
+                for item in self.get_t_ids(box2_value):
+                    items += item
+                self.combo2.addItem(box2_value, items)
+                self.combo2.setCurrentText(box2_value)
+                self.combo1.clear()
+                self.combo1.addItem('choose a teacher', 'choose a course')
+                self.combo1.setCurrentText('choose a teacher')
+                self.c_clicker(self.combo2.currentIndex())
+                self.combo1.setCurrentText(box1_value)
 
     def back_function(self):
         self.close()
@@ -630,10 +658,9 @@ class student_edit_window(QMainWindow):
         for c_id in db.get_courses_ids():
             for c_value in c_id:
                 items = []
-                if items:
-                    for item in self.get_t_ids(c_value):
-                        items += item
-                    self.combo2.addItem(c_value, items)
+                for item in self.get_t_ids(c_value):
+                    items += item
+                self.combo2.addItem(c_value, items)
 
         for t_id in db.get_teacher_ids():
             for t_value in t_id:
@@ -643,48 +670,113 @@ class student_edit_window(QMainWindow):
         self.combo2.activated.connect(self.c_clicker)
 
     def t_clicker(self, index):
-        if self.teacher_Id_Box.currentText() != 'choose a teacher':
-            self.combo2.clear()
-            self.course_Id.addItem('choose a course')
-            self.combo2.addItem(self.combo1.itemData(index))
-        elif self.teacher_Id_Box.currentText() == 'choose a teacher':
-            self.course_Id.clear()
-            self.course_Id.addItem('choose a course')
-            for c_id in db.get_courses_ids():
-                for c_value in c_id:
-                    items = []
-                    for item in self.get_t_ids(c_value):
-                        items += item
-                self.combo2.addItem(c_value, items)
+        if self.course_Id.currentText() == 'choose a course':
+            if self.teacher_Id_Box.currentText() != 'choose a teacher':
+                self.combo2.clear()
+                self.combo2.addItem('choose a course', 'choose a teacher')
+                self.combo2.addItem(self.combo1.itemData(index))
+            elif self.teacher_Id_Box.currentText() == 'choose a teacher':
+                self.combo2.clear()
+                self.combo2.addItem('choose a course', 'choose a teacher')
+                for c_id in db.get_courses_ids():
+                    for c_value in c_id:
+                        items = []
+                        for item in self.get_t_ids(c_value):
+                            items += item
+                    self.combo2.addItem(c_value, items)
+
+        else:
+            if self.teacher_Id_Box.currentText() == 'choose a teacher':
+                value = self.combo2.currentText()
+                self.combo2.clear()
+                self.combo2.addItem('choose a course', 'choose a teacher')
+                for c_id in db.get_courses_ids():
+                    for c_value in c_id:
+                        items = []
+                        for item in self.get_t_ids(c_value):
+                            items += item
+                        self.combo2.addItem(c_value, items)
+                self.combo1.clear()
+                self.combo1.addItem('choose a teacher', 'choose a course')
+                for t_id in db.get_teacher_ids():
+                    for t_value in t_id:
+                        self.combo1.addItem(t_value, self.get_c_ids(t_value))
+                self.combo2.setCurrentText(value)
+                self.c_clicker(self.combo2.currentIndex())
+            elif self.teacher_Id_Box.currentText() != 'choose a teacher':
+                box1_value = self.combo1.currentText()
+                values = [self.combo1.itemText(i)
+                          for i in range(self.combo1.count())]
+                box2_value = self.combo2.currentText()
+                self.combo1.clear()
+                self.combo1.addItem('choose a teacher', 'choose a course')
+                for value in values:
+                    if value != 'choose a teacher':
+                        self.combo1.addItem(value, self.get_c_ids(value))
+                self.combo1.setCurrentText(box1_value)
+                self.combo2.clear()
+                self.combo2.addItem('choose a course', 'choose a teacher')
+                self.combo2.setCurrentText('choose a course')
+                self.t_clicker(self.combo1.currentIndex())
+                self.combo2.setCurrentText(box2_value)
 
     def c_clicker(self, index):
         if self.teacher_Id_Box.currentText() == 'choose a teacher':
             if self.course_Id.currentText() != 'choose a course':
                 self.combo1.clear()
-                self.teacher_Id_Box.addItem('choose a teacher')
+                self.combo1.addItem('choose a teacher', 'choose a course')
                 self.combo1.addItems(self.combo2.itemData(index))
-            else:
-                self.teacher_Id_Box.clear()
-                self.teacher_Id_Box.addItem('choose a teacher')
+            elif self.course_Id.currentText() == 'choose a course':
+                self.combo1.clear()
+                self.combo1.addItem('choose a teacher', 'choose a course')
                 for t_id in db.get_teacher_ids():
                     for t_value in t_id:
                         self.combo1.addItem(t_value, self.get_c_ids(t_value))
+        else:
+            if self.course_Id.currentText() == 'choose a course':
+                value = self.combo1.currentText()
+                self.combo1.clear()
+                self.combo1.addItem('choose a teacher', 'choose a course')
+                for t_id in db.get_teacher_ids():
+                    for t_value in t_id:
+                        self.combo1.addItem(t_value, self.get_c_ids(t_value))
+                self.combo2.clear()
+                self.combo2.addItem('choose a course', 'choose a teacher')
+                for c_id in db.get_courses_ids():
+                    for c_value in c_id:
+                        items = []
+                        for item in self.get_t_ids(c_value):
+                            items += item
+                        self.combo2.addItem(c_value, items)
+                self.combo1.setCurrentText(value)
+                self.t_clicker(self.combo1.currentIndex())
+            elif self.course_Id.currentText() != 'choose a course':
+                items = []
+                box1_value = self.combo1.currentText()
+                box2_value = self.combo2.currentText()
+                self.combo2.clear()
+                self.combo2.addItem('choose a course', 'choose a teacher')
+                for item in self.get_t_ids(box2_value):
+                    items += item
+                self.combo2.addItem(box2_value, items)
+                self.combo2.setCurrentText(box2_value)
+                self.combo1.clear()
+                self.combo1.addItem('choose a teacher', 'choose a course')
+                self.combo1.setCurrentText('choose a teacher')
+                self.c_clicker(self.combo2.currentIndex())
+                self.combo1.setCurrentText(box1_value)
 
     def get_c_ids(self, value):
         result = db.get_c_ids((value,))
         if result is not None:
-            if result:
-                return result[0]
+            return result[0]
         else:
             pass
 
     def get_t_ids(self, value):
         result = db.get_t_ids((value,))
         if result is not None:
-            if result:
-                return result[0]
-            else:
-                pass
+            return result
         else:
             pass
 
