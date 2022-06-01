@@ -1,3 +1,4 @@
+from cgitb import text
 import oop_res
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
@@ -6,7 +7,9 @@ import sys
 import database as db
 from database import my_cursor
 import re
-
+import pywhatkit as kit
+import time
+import pyautogui
 
 # welcome window for the application
 
@@ -58,6 +61,7 @@ class student_main_window(QMainWindow):
         self.BackButton.clicked.connect(self.back_function)
         self.add_studentButton.clicked.connect(self.open_add_window)
         self.edit_studentButton.clicked.connect(self.open_edit_window)
+        self.fees_detailsButton.clicked.connect(self.open_fees_window)
         # self.fees_button.clicked.connect(self.open_fees_window)
 
     def close_function(self):
@@ -79,6 +83,11 @@ class student_main_window(QMainWindow):
     def open_edit_window(self):
         self.close()
         self.main = student_edit_window()
+        self.main.show()
+
+    def open_fees_window(self):
+        self.close()
+        self.main = fees_window()
         self.main.show()
 
 
@@ -235,6 +244,10 @@ class teacher_add_window(QMainWindow):
             self.note_msg.setText('teacher added successfully')
             # update the list
             self.load_list()
+            self.first_Name.setText('')
+            self.last_Name.setText('')
+            self.id.setText('')
+            self.course_Id.setCurrentText('choose a course')
 
     def back_function(self):
         # back to teachers main window
@@ -321,6 +334,9 @@ class teacher_edit_window(QMainWindow):
             for id in db.get_teacher_ids():
                 for value in id:
                     self.teacher_Id_Box.addItem(value)
+            self.first_Name.setText('')
+            self.last_Name.setText('')
+            self.course_Id.setCurrentText('choose a course')
 
     def delete(self):
         # delete the selected ID from the combo box
@@ -334,6 +350,9 @@ class teacher_edit_window(QMainWindow):
             for id in db.get_teacher_ids():
                 for value in id:
                     self.teacher_Id_Box.addItem(value)
+            self.first_Name.setText('')
+            self.last_Name.setText('')
+            self.course_Id.setCurrentText('choose a course')
         else:
             self.note_msg.setText('choose a teacher')
 
@@ -674,11 +693,13 @@ class student_add_window(QMainWindow):
             v_name = True
         if len(phone) == 0:
             self.note_msg.setText('please input the phone field')
+        elif len(phone) < 10 or len(phone) > 11:
+            self.note_msg.setText('please input a valid phone number')
         else:
             if phone.isdigit():
                 v_phone = True
             else:
-                self.note_msg.setText('please put a valid number')
+                self.note_msg.setText('please input a valid phone number')
 
         if gender == 'choose a gender':
             self.note_msg.setText('please choose a gender')
@@ -693,6 +714,12 @@ class student_add_window(QMainWindow):
             self.note_msg.setText('student added successfully')
             # update the student list
             self.fill_list()
+            self.first_Name.setText('')
+            self.last_Name.setText('')
+            self.phone.setText('')
+            self.gender.setCurrentText('choose a gender')
+            self.teacher_Id_Box.setCurrentText('choose a teacher')
+            self.course_Id.setCurrentText('choose a course')
 
     def get_c_ids(self, value):
         # getting the course associated with the teacher ID passed in the parameter
@@ -899,11 +926,13 @@ class student_edit_window(QMainWindow):
             v_name = True
         if len(phone) == 0:
             self.note_msg.setText('please input the phone field')
+        elif len(phone) < 10 or len(phone) > 11:
+            self.note_msg.setText('please input a valid phone number')
         else:
-            if phone.strip().isdigit():
+            if phone.isdigit():
                 v_phone = True
             else:
-                self.note_msg.setText('please put a valid number')
+                self.note_msg.setText('please input a valid phone number')
         if gender == 'choose a gender':
             self.note_msg.setText('please choose a gender')
         else:
@@ -915,6 +944,12 @@ class student_edit_window(QMainWindow):
         if v_check_box and v_name and v_phone and v_gender:
             db.update_student(id, f_name, l_name, t_id, phone, gender, c_id)
             self.note_msg.setText('student updated successfully')
+            self.first_Name.setText('')
+            self.last_Name.setText('')
+            self.phone.setText('')
+            self.gender.setCurrentText('choose a gender')
+            self.teacher_Id_Box.setCurrentText('choose a teacher')
+            self.course_Id.setCurrentText('choose a course')
 
     def delete(self):
         # delete student by ID
@@ -924,9 +959,15 @@ class student_edit_window(QMainWindow):
             id = (self.id.text(),)
             db.delete_student(id)
             self.note_msg.setText('student deleted successfully')
+            self.first_Name.setText('')
+            self.last_Name.setText('')
+            self.phone.setText('')
+            self.gender.setCurrentText('choose a gender')
+            self.teacher_Id_Box.setCurrentText('choose a teacher')
+            self.course_Id.setCurrentText('choose a course')
+            self.id.setText('')
 
 
-""" fee class:
 class fees_window(QMainWindow):
     def __init__(self):
         super(fees_window, self).__init__()
@@ -938,6 +979,32 @@ class fees_window(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.exit_button.clicked.connect(self.close_function)
         self.BackButton.clicked.connect(self.back_function)
+        self.switch_Button.clicked.connect(self.switch_fees)
+        self.unpaid_Button.clicked.connect(self.unpay_fees)
+        self.alert_Button.clicked.connect(self.send_alert)
+        self.send_Button.clicked.connect(self.send_text_massage)
+
+        self.fill_list()
+
+    def fill_list(self):
+        # same way as othe fill_list functions
+        self.students_List.clear()
+        for result in db.fees_info():
+            self.students_List.addItem(result[0])
+
+    def unpay_fees(self):
+        id = ((self.id.text()),)
+        db.unpay_fees(id)
+        self.fill_list()
+        self.note_msg.setText('fees switched to unpaid')
+
+    def switch_fees(self):
+        id = ((self.id.text()),)
+        db.pay_fees(id)
+        self.fill_list()
+        phone = db.get_phone(id)
+        self.note_msg.setText('fees switched to paid')
+        self.send_paid(str(phone[0]))
 
     def back_function(self):
         self.close()
@@ -946,7 +1013,35 @@ class fees_window(QMainWindow):
 
     def close_function(self):
         self.close()
-"""
+
+    def send_alert(self):
+        for phone in db.get_all_unpaid_phone():
+            kit.sendwhatmsg_instantly(
+                f'+20'+str(phone[0]), " Hello \n we would like to remind you that the fees for your course is not paid 'center name here'", 2, False)
+            pyautogui.click()  # Clicks the bar
+            pyautogui.press('enter')
+            time.sleep(1)
+            pyautogui.hotkey('ctrl', 'w')
+        self.note_msg.setText('alerts sent to all unpaid students')
+
+    def send_text_massage(self):
+        text = self.message_text.toPlainText()
+        for phone in db.get_all_phone():
+            kit.sendwhatmsg_instantly(
+                f'+20'+str(phone[0]), text, 2, False)
+            pyautogui.click()  # Clicks the bar
+            pyautogui.press('enter')
+            time.sleep(1)
+            pyautogui.hotkey('ctrl', 'w')
+        self.note_msg.setText('message sent to all students')
+
+    def send_paid(self, phone):
+        kit.sendwhatmsg_instantly(
+            f'+20'+phone, "course fees are successfully paid /n thanks", 2, False)
+        pyautogui.click()  # Clicks the bar
+        pyautogui.press('enter')
+        time.sleep(1)
+        pyautogui.hotkey('ctrl', 'w')
 
 
 class course_add_window(QMainWindow):
@@ -1009,6 +1104,9 @@ class course_add_window(QMainWindow):
         if v_name and v_id and v_price and v_duplication:
             db.add_course(name, id, price)
             self.note_msg.setText('course added successfully')
+            self.name.setText('')
+            self.price.setText('')
+            self.id.setText('')
             self.fill_list()
 
 
@@ -1044,18 +1142,13 @@ class course_edit_window(QMainWindow):
         self.close()
 
     def edit_data(self):
-
         id = (self.course_Id.currentText(),)
         result = db.get_course_data(id)
         if result is not None:
             name, price = result
             self.name.setText(name)
             self.price.setText(str(price))
-            self.course_Id.clear()
-            self.course_Id.addItem('choose a course')
-            for id in db.get_courses_ids():
-                for value in id:
-                    self.course_Id.addItem(value)
+
         else:
             self.note_msg.setText('choose a valid ID')
 
@@ -1092,6 +1185,8 @@ class course_edit_window(QMainWindow):
             for id in db.get_courses_ids():
                 for value in id:
                     self.course_Id.addItem(value)
+            self.name.setText('')
+            self.price.setText('')
 
     def delete(self):
         if self.course_Id.currentText() != 'choose a course':
@@ -1103,6 +1198,8 @@ class course_edit_window(QMainWindow):
             for id in db.get_courses_ids():
                 for value in id:
                     self.course_Id.addItem(value)
+            self.name.setText('')
+            self.price.setText('')
 
         else:
             self.note_msg.setText('choose a valid ID')

@@ -278,3 +278,40 @@ def student_check(f_name, l_name, phone, gender, c_id):
         sql, (phone, gender, f_name, l_name, c_id))
     result = my_cursor.fetchone()
     return result
+
+
+def fees_info():
+    sql = ('select concat(id,"-Name:",first_name," ",last_name,", fees: ",paid) from students ORDER BY id')
+    my_cursor.execute(sql)
+    result = my_cursor.fetchall()
+    return result
+
+
+def pay_fees(id):
+    sql = ('update students set paid=1 where id=(%s);')
+    my_cursor.execute(sql, (id))
+    db.commit()
+
+
+def unpay_fees(id):
+    sql = ('update students set paid=0 where id=(%s);')
+    my_cursor.execute(sql, (id))
+    db.commit()
+
+
+def get_phone(id):
+    my_cursor.execute('select phone from students where id=%s', (id))
+    result = my_cursor.fetchone()
+    return result
+
+
+def get_all_unpaid_phone():
+    my_cursor.execute('select phone from students where paid=0')
+    result = my_cursor.fetchall()
+    return result
+
+
+def get_all_phone():
+    my_cursor.execute('select phone from students')
+    result = my_cursor.fetchall()
+    return result

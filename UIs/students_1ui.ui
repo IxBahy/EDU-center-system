@@ -129,7 +129,7 @@ background:none;</string>
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>210</y>
+       <y>130</y>
        <width>200</width>
        <height>150</height>
       </rect>
@@ -169,8 +169,8 @@ color:rgb(170, 170, 170);
     <widget class="QPushButton" name="edit_studentButton">
      <property name="geometry">
       <rect>
-       <x>420</x>
-       <y>210</y>
+       <x>400</x>
+       <y>130</y>
        <width>200</width>
        <height>150</height>
       </rect>
@@ -260,6 +260,47 @@ color:rgb(170, 170, 170);
      </property>
      <property name="text">
       <string>Back</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="fees_detailsButton">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>300</y>
+       <width>200</width>
+       <height>150</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#fees_detailsButton{
+	background-color: rgb(9, 57, 71);
+	border-radius:5px;
+color:rgb(200,200,200);
+}
+QPushButton#fees_detailsButton:hover{	
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(19, 122, 150, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+QPushButton#fees_detailsButton:pressed{
+	padding-left:5px;
+padding-top:5px;
+	background-color: qlineargradient(spread:pad, x1:0.99, y1:1, x2:0, y2:0, stop:0.119403 rgba(4, 29, 36, 255), stop:0.791045 rgba(37, 44, 38, 255));
+	border-radius:5px;
+color:rgb(170, 170, 170);
+}
+
+</string>
+     </property>
+     <property name="text">
+      <string>fees details</string>
      </property>
     </widget>
    </widget>
