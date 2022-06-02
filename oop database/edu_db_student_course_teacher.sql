@@ -41,6 +41,7 @@ CREATE TABLE `student_course_teacher` (
 
 LOCK TABLES `student_course_teacher` WRITE;
 /*!40000 ALTER TABLE `student_course_teacher` DISABLE KEYS */;
+INSERT INTO `student_course_teacher` VALUES (1,'ar','moB'),(2,'ar','moB');
 /*!40000 ALTER TABLE `student_course_teacher` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-28 22:51:05
+-- Dump completed on 2022-06-02 21:51:41
