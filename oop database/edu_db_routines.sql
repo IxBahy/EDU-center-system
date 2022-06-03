@@ -195,7 +195,6 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_student`(in p_id int(50))
 BEGIN
 	delete from students where id=p_id;
-    delete from student_course_teacher where s_id=p_id;
     update students 
     set id=id-1 where id> p_id;
     update student_course_teacher
@@ -343,7 +342,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `total_course_income`(IN course_id varchar(50),out total_income int(50))
 begin
-	set @std_count = (select count(s_id) from student_course_teacher where c_id = course_id);
+	set @std_count = (select count(s_id) from student_course_teacher where c_id = course_id and (select paid from students where id=s_id)=1 );
     set @course_fees = (select price from courses where id = course_id);
     set total_income = @std_count * @course_fees;
     
@@ -484,4 +483,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-02 21:51:42
+-- Dump completed on 2022-06-03 16:17:37
