@@ -1017,10 +1017,10 @@ class fees_window(QMainWindow):
     def send_alert(self):
         for phone in db.get_all_unpaid_phone():
             kit.sendwhatmsg_instantly(
-                f'+20'+str(phone[0]), " Hello \n we would like to remind you that the fees for your course is not paid 'center name here'", 2, False)
+                f'+20'+str(phone[0]), " Hello \n we would like to remind you that the fees for your course is not paid 'center name here'", 4, False)
             pyautogui.click()  # Clicks the bar
             pyautogui.press('enter')
-            time.sleep(1)
+            time.sleep(2)
             pyautogui.hotkey('ctrl', 'w')
         self.note_msg.setText('alerts sent to all unpaid students')
 
@@ -1028,19 +1028,19 @@ class fees_window(QMainWindow):
         text = self.message_text.toPlainText()
         for phone in db.get_all_phone():
             kit.sendwhatmsg_instantly(
-                f'+20'+str(phone[0]), text, 2, False)
+                f'+20'+str(phone[0]), text, 4, False)
             pyautogui.click()  # Clicks the bar
             pyautogui.press('enter')
-            time.sleep(1)
+            time.sleep(2)
             pyautogui.hotkey('ctrl', 'w')
         self.note_msg.setText('message sent to all students')
 
     def send_paid(self, phone):
         kit.sendwhatmsg_instantly(
-            f'+20'+phone, "course fees are successfully paid /n thanks", 2, False)
+            f'+20'+phone, "course fees are successfully paid /n thanks", 4, False)
         pyautogui.click()  # Clicks the bar
         pyautogui.press('enter')
-        time.sleep(1)
+        time.sleep(2)
         pyautogui.hotkey('ctrl', 'w')
 
 
